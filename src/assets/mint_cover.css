@@ -1,0 +1,95 @@
+.mint-header{
+	background-color: #383a40;
+	color:#ffffff;
+	height: 2.2rem;
+}
+.mint-header-title{
+	font-size: .8rem;
+}
+.mint-button{
+	line-height: 1;
+}
+.msgbox-btn{
+	font-size: .7rem;
+}
+.msgbox-message{
+	color: #333
+}
+.mint-cell{
+	font-size: .7rem;
+	    padding: 15px 10px;
+}
+.mint-cell-text{
+	color: #333
+}
+.mint-cell-value{
+	color: #585858
+}
+.mint-button{
+	background-color: #fff;
+}
+.button-cyan{
+	border: 1px solid #69DBB8;
+	color: #69DBB8;
+}
+.button-grey{
+	border: 1px solid #d7d7d7;
+	color: #d7d7d7;
+}
+.mint-checkbox-core:checked {
+	background-color: #585858;
+    border-color: #585858;
+}
+.v-modal{
+	opacity: .3
+}
+.sw-spinner{
+	height: inherit;
+}
+.mint-toast{
+	position: absolute;
+	z-index:3000;
+}
+
+.mint-indicator-mask, .mint-indicator-wrapper{
+	position: absolute;
+	z-index: 6666;
+}
+
+.mint-navbar .mint-tab-item.is-selected{
+	border-bottom: 3px solid #f56f1c;
+	color: #f56f1c;
+}
+
+.mint-tab-item-label{
+	font-size: .7rem
+}
+
+.mint-header .mint-button.left{
+    width: 100%;
+    text-align: left;
+}
+/* cell */
+.mint-cell-allow-right:after {
+    border: 1px solid #999;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    content: " ";
+    top: 50%;
+    right: 14px;
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    -webkit-transform: translateY(-50%) rotate(45deg) scale(1);
+    transform: scale(1); 
+    transform: translateY(-50%) rotate(45deg); 
+}
+
+/*email input*/
+#emailFeild label.mint-cell-title{
+    width:20%;
+  }
+
+#myCarList .mint-cell::before{
+	border-bottom:0 !important;
+}

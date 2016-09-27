@@ -1,0 +1,194 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	box-sizing: border-box;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+html{
+	font-size: 20px;
+}
+body {
+	line-height: 1.5;
+	font-size: 0.7rem;
+	background-color: #efefef;
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.page{
+    position: absolute;
+    min-height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;	
+    background-color: #f7f7f7;
+    color: #333;
+}
+.container{
+	position: absolute;
+	top:0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+.container-top{
+    position: absolute;
+    top: 2.2rem;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+input{
+	font-size: .7rem;
+	padding: .3rem;
+	border: none;
+}
+:focus {
+    outline: none;
+}
+::-webkit-input-placeholder{
+	font-weight: lighter;
+	color: #aaa;
+}
+/* text-align */
+.text-center{
+	text-align: center;
+}
+.text-left{
+	text-align: left;
+}
+.text-right{
+	text-align: right;
+}
+/*color*/
+.text-cyan{
+	color:#33d29f !important
+}
+.text-red{
+	color:#f03852 !important
+}
+.text-orange{
+	color:#f56f1c !important
+}
+.text-grey{
+	color:#9e9e9e !important
+}
+.text-lightgrey{
+	color:#d7d7d7 !important
+}
+.text-blue{
+	color:#2b9bdb !important
+}
+.text-white{
+	color:#fff !important
+}
+.cell-iconfont{
+	font-size: .5rem;
+}
+/*background-color*/
+.bk-cyan{
+	background-color:#33d29f !important
+}
+.bk-red{
+	background-color:#f03852 !important
+}
+.bk-white{
+	background-color:#fff !important
+}
+.bk-orange{
+	background-color:#f56f1c !important
+}
+.bk-grey{
+	background-color:#9e9e9e !important
+}
+.bk-lightgrey{
+	background-color:#d7d7d7 !important
+}
+.bk-blue{
+	background-color:#2b9bdb !important
+}
+/*font-size*/
+.text-large{
+	font-size: .75rem !important
+}
+.text-small{
+	font-size: .65rem !important
+}
+.text-tiny{
+	font-size: .55rem !important
+}
+/*rounded corner*/
+.round {
+	border-radius: 5px !important
+}
+.no-round {
+	border-radius: 0 !important
+}
+/* loading */
+.padding-loading{
+	padding-top: .5rem;
+}
+/* float */
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+/*padding*/
+.pd-tiny{
+	padding: .25rem
+}
+.pd-mid{
+	padding: .5rem
+}
+.w100{
+	width: 100%
+}
+.btn-cyan{
+	border:1px solid #33d29f !important;
+	color: #33d29f !important;
+}
+.bottomHeight{
+	height:2.5rem !important;
+	line-height:2.5rem !important;
+}
