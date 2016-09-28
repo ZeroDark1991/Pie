@@ -12,12 +12,15 @@ import { sync } from 'vuex-router-sync'
 import store from './vuex/store'
 
 // UI layout & components
+import 'mobi.css'
 import './assets/icon.css'
 import './assets/common.css'
 import './assets/trainsition.css'
 import Mint from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import './assets/mint_cover.css'
+
+
 import { MessageBox } from 'mint-ui'
 import { Toast } from 'mint-ui'
 

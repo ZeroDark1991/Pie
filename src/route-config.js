@@ -12,6 +12,11 @@ export function configRouter (router) {
       component: function(resolve) {
         require(['./views/settings.vue'],resolve) 
       }
+    },
+    '/pay': {
+      component: function(resolve) {
+        require(['./views/pay.vue'],resolve) 
+      }
     }
 
     // // not found handler

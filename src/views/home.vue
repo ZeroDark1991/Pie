@@ -1,28 +1,58 @@
 <template>
 <div class="page">
-	<div class="cushion">
-		<!-- Header -->
-		<mt-header fixed title="个人中心">
-			<mt-button slot="left">&nbsp;</mt-button>
-			<!-- <mt-button slot="right" @click="go('/my_cars')"> -->
-			<mt-button slot="right" @click="$go('/settings')">
-				<span class="text-white" style="font-size:.7rem; padding: .5rem .3rem .5rem 1.2rem;">
-				    <i class="iconfont">&#xe61f;</i>
-				</span>
-			</mt-button>
-		</mt-header>
-
-		<div class="container-top">
-
-		</div>
+	<!-- Header -->
+	<mt-header fixed title="账号派">
+		<mt-button slot="right" @click="$go('/settings')">
+			<span style="font-size:.7rem; padding: .5rem .3rem .5rem 1.2rem;">
+			    <i class="iconfont">&#xe60b;</i>
+			</span>
+		</mt-button>
+	</mt-header>
+	<div class="container-top" style="background-color: #f4f4f4">
+        <div class="flex-center top-gap site-box">
+            <span
+            class="site-box text-large"
+            style= 'border-bottom: 1px solid #0083ff'
+            @click="switchPlantform()">
+                {{currentPlanform.name}}<i class="iconfont">&#xe60f;</i>
+            </span>
+        </div>
+        <div class="flex-center site-box" style="padding: 1rem 0;">
+            <div class="tap-box" @click='fetchAccount()'>
+            	<div class="flex-center top-gap site-box">
+            		<i class="iconfont text-white" style="font-size: 3.4rem">&#xe60c;</i>
+            	</div>
+            	<div class="flex-center site-box text-white text-large"
+            	    style="margin-top: -0.6rem">来个账号
+            	</div>
+            </div>
+        </div>
+        <div class="flex-center site-box">
+            <div class="site-box text-center text-large">
+        	    <div>
+        	        <span  style="border-bottom:1px solid #ddd">{{ date.year }}年{{ date.month }}月{{ date.day }}日</span>
+        	        <span  style="border-bottom:1px solid #ddd">{{ date.hour }}:00</span>
+        	    </div>
+       	    
+            </div>
+        </div>
 	</div>
+	<mt-popup
+        :visible.sync="popupForPlantform">
+        <div
+            class= 'pop-opts text-large'
+            v-for= "item in plantforms"
+            @click= 'submitPlantform(item.name)'
+            >
+        	{{ item.name }}
+        </div>
+    </mt-popup>
 </div>
 </template>
 
 <script>
 // Ajax request module, return a Promise
 import Service from '../service'
-import SwRadio from '../components/radio'
 import {
 	setUser_store_info,
 	setVipuser_store_info,
@@ -44,86 +74,47 @@ export default {
   	},
 	data () {
 		return {
-			img:[
-			    'http://sayoogi.oss-cn-hangzhou.aliyuncs.com/SayogiClient_Assets/Center/gerenrizhi.png',
-			    'http://sayoogi.oss-cn-hangzhou.aliyuncs.com/SayogiClient_Assets/Center/weizhangcishu.png'
-			    ],
-			recodeCount: "0", //个人日志数量
-			userCoupncount: "0", //优惠券数量
-			carCount: "0", //车辆数量
-			carinfo: "车牌号暂无",
-			loginBtn: false,
-			linkArr: ['/activity'],
-			nickName: '',
-			hasLoaded: false,
-			userId: null,
-			avatarSrc: 'http://img.sayogi.cn/user_no_login_v1.0.png',
-			breachUrl: ''
+			popupForPlantform: false,
+            date:{
+            	year: '',
+            	month: '',
+            	day: '',
+            	hour: ''
+            },
+            plantforms:[
+                { name: '爱奇艺' },
+                { name: '优酷' },
+                { name: '乐视' },
+            ],
+            currentPlanform: {
+            	name: '爱奇艺'
+            }
 		}
 	},
 	methods: {
-		goBreach(){
-			var info = {'url':this.breachUrl}
-			console.log(this.breachUrl)
-			app_get_h5_info(info)
+		fetchAccount(){
+            this.$go('/pay')	
 		},
-		changeAvatar() {
-			this.sheetVisible = true
+		switchPlantform(){
+			console.log(1)
+			this.popupForPlantform = true
 		},
-		photoShow(id) {
-			let self = this
-			self.avatarSrc = id
+		submitPlantform(chosen){
+			this.currentPlanform.name = chosen
+			this.popupForPlantform = false
 		}
 	},
 	created(){
-		let self = this
-		self.$Indicator.open()
-		return Service.bind(this)('sayogi', 'UserInfo', '')
-			.then((data) => {
-				self.$Indicator.close()
-				self.hasLoaded = true
-
-				self.avatarSrc = 'http://img.sayogi.cn/user_no_login_v1.0.png'
-				if(!data) return
-				if (data.vipuser) {
-					self.setVipuser_store_info(data.vipuser)
-				}
-				if(!data.user){ //若未登录
-					self.loginBtn = true//显示登录按钮
-					self.avatarSrc = 'http://img.sayogi.cn/user_no_login_v1.0.png'
-					// self.recordCount = "0"; //违章次数
-					self.carCount = "0" //车辆数量
-					self.recodeCount = "0" //个人日志数量
-					self.userCoupncount = "0" //优惠券数量
-				}else {
-					self.breachUrl = data.url
-                    self.loginBtn = false
-                    self.nickName = data.user.nickName?data.user.nickName:data.user.loginName
-					self.userId = data.SU.userId
-					// self.recordCount = data.recordCount;
-					self.recodeCount = data.recodeCount
-					self.carCount = data.carCount
-					self.userCoupncount = data.userCoupncount
-					self.carinfo = data.carinfo?data.carinfo.plateNum:'车牌号暂无'
-					//存储到store
-					self.setUser_store_info(data.user)
-					self.setUser_su_store_info(data.SU)
-					if(data.user.avatarFileId){
-						let dpr = window.devicePixelRatio  //设备像素比
-			            let w = 80*dpr
-			            let h = w
-			            var img = this.$imgHandler(data.user.avatarFileId, data.user._avatarFileId_fileExtend,"", w, h)
-			            self.avatarSrc = img
-					}else {
-						self.avatarSrc = 'http://img.sayogi.cn/user_no_login_v1.0.png'
-					}
-				}
-		})
+		let today = new Date()
+		this.date = {
+			year: today.getFullYear(),
+			month: today.getMonth() + 1,
+			day: today.getDate(),
+			hour: today.getHours()
+		}
 	},
 	route: {
 		data ({ to, next }) {
-
-			let self = this;
 			//Hook-function which triggers before rendered
             next()
 		},
@@ -141,6 +132,18 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+span{
+	padding: .2rem;
+	margin: 0 .2rem;
+}
+.mint-popup{
+	width: 60%;
+	text-align: center;
+	padding: .2rem 0;
+	border-radius: 8px;
+	top: 110px;
+	transform: translate3d(-50%,0,0);
+}
 .cushion {
 	bottom: 2.5rem;
     position: absolute;
@@ -148,67 +151,23 @@ export default {
     right: 0;
     left: 0;
 }
-
-.avatar {
-	padding-top: .8rem;
-	padding-bottom: .6rem;
-}
-
-.avatar .avatarImg{
-	display: block;
-	margin: 0 auto;
-	width: 4rem;
-	height: 4rem;
+.tap-box {
+	width: 150px;
+	height: 150px;
 	border-radius: 50%;
+	background-color: #0083ff;
 }
-
-.button_Bar {
-	display: -webkit-box;
-	display: flex;
-	padding: .5rem 2rem;
-	background: #fff;
+.pop-opts{
+	padding: .3rem 0;
+	border-bottom: 1px #eee solid;
 }
-
-.button_Bar_item {
-	display: block;
-	-webkit-box-flex: 1;
-	flex: 1;
-	-webkit-tap-highlight-color: transparent;
-	text-align: center;
+.pop-opts:last-child{
+	border-bottom: none;
 }
-
-.button_Bar_item ul {
-	margin: 0 auto;
-	padding-bottom: .4rem;
-	width: 4.5rem;
-	background: #f7f7f7;
+.pop-opts:active{
+	background-color: #eee;
 }
-
-.button_Bar_item ul li:first-child {
-	font-size: 1.2rem;
-}
-
-.text-mygrey {
-	color: #a3a3a3 !important;
-}
-
-.edit_name {
-	position: absolute;
-	right: -1.8rem;
-}
-.mint-actionsheet{
-	bottom: 2.5rem;
-}
-.mint-cell::before {
-    color: #d9d9d9;
-    content: " ";
-    width: 100%;
-    height: 1;
-    border-bottom: 1px solid;
-    bottom: 0;
-    left: 0;
-    position: absolute;
-    -webkit-transform-origin: 0 100%;
-    transform-origin: 0 100%;
+.top-gap {
+	margin-top: 16px;
 }
 </style>

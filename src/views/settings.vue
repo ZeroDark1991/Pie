@@ -1,9 +1,9 @@
 <template>
 <div class="page">
-    <mt-header fixed title="设置">
-        <mt-button @click="back('/home')" class="left" slot="left">
-            <span class="iconfont">&#xe602;</span> 
-        </mt-button>
+    <mt-header fixed title="我的">
+      <mt-button @click="$back('/home')" class="left" slot="left">
+        <span class="iconfont">&#xe609;</span> 
+      </mt-button>
     </mt-header>
     <!-- Cell -->
     <div class="container-top">
@@ -22,8 +22,7 @@
       </mt-cell>
       
     </div>  
-    <mt-button v-show="!!user_info.userId" class="quit bk-red no-round" @click="quit()" type="danger">退出当前账号</mt-button>
-    
+    <mt-button class="quit bk-red no-round" type="danger">退出当前账号</mt-button>
 </div>
 </template>
 
@@ -65,59 +64,12 @@ export default {
     IconCell,
   },
   methods:{
-    go (link) {
-        let self = this;
-        self.$transfer.go(self, link)
-    },
-    back (link) {
-      let self = this;
-		  self.$transfer.back(self, link)
-    },
-    cleanCache() {	
-      let self = this;
-		  self.$MessageBox.confirm('确认清除缓存?')
-  		  .then(action => {
-          //调清除缓存接口
-          if(!Pointers.Settings) Pointers.Settings = self;
-          app_clear_cache("clear_cache_callback_f");
-  		  })
-    },
-    moreInfo(){
-      let self = this;
-      self.$Toast('没更多了')
-    },
-    share(){
-      let self = this;
-      //调分享接口
-      if(!Pointers.Settings) Pointers.Settings = self;
-      app_share_f("share_callback_f"); 
-    },
-    callAsistant(){
-      let self = this;
-  		self.$MessageBox({
-  			message: '客服电话：4001692828',
-  			showConfirmButton: true,
-  			showCancelButton: true,
-  			confirmButtonText: '拨打',
-  			confirmButtonClass: 'text-cyan'
-  		})
-  		.then(action => {
-        // console.log(action);
-        let self = this;
-        if (action == "confirm") {
-          if(!Pointers.Settings) Pointers.Settings = self;
-          app_call_tel("4001692828","call_tell_callback_f");//调拨打电话接口
-        }
-  		})
-    },
     quit(){//退出账号
       let self = this;
       //调退账号接口
       return Service(this, 'sayogi', 'Logout', '')
         .then((data) => {
           if(!data) return;
-          console.log(data);
-          if(!Pointers.Settings) Pointers.Settings = self;
           self.$Toast("账号已退出");
           self.setUser_store_info({});
           app_show_login_f("login_callback_f");
@@ -126,23 +78,10 @@ export default {
   },
   route: {
     data ({next}) {
-  		setTimeout(()=>{
-  			next({count:3})
-  		},1000)
-      //显示缓存
-      let self = this;
-      if(!Pointers.Settings) Pointers.Settings = self;
-      // app_show_cache("show_cache_callback_f");
-      try {
-        app_show_cache("show_cache_callback_f");
-      } catch(e) {
-        console.log(e);
-      }
+      next()
     },
     deactivate ({ next }) {
       //Triggers when component destroys
-      let self = this;
-      Pointers.Settings = null;
       next()
     }
   }

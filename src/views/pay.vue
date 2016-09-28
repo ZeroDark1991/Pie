@@ -1,11 +1,12 @@
 <template>
-<div  class="page">
-<div class="container">
+<div class="page">
     <mt-header title="支付">
-      	<mt-button @click="back(backPath)" class="left" slot="left">
-          <span class="iconfont">&#xe602;</span> 
+        <mt-button @click="$back('home')" class="left" slot="left">
+          <span class="iconfont">&#xe609;</span> 
         </mt-button>
     </mt-header>
+  <div class="container-top">
+
     <!-- data is loading -->
     <!-- <div v-if="$loadingRouteData" transition = "faded">
         <mt-spinner type="snake" color="#ff6632" :size="20"></mt-spinner>
@@ -220,37 +221,7 @@ export default {
   },
   route: {
     data ({from,to,next}){
-      let self = this;
-      console.log(self.vipuser_info)
-      
-      let orderid = self.$route.params.orderId;
-      let frompath = from.path;
-      self.orderId = orderid;   
-      if(frompath != "/forget_paykey"){
-        self.backPath = frompath;
-      }else{
-        self.backPath = "/order_detail/"+self.orderId;
-      }
-      let s = {"id":self.orderId};  
-      return Service(this, 'powerShop', 'UserOrderInfoNew', JSON.stringify(s))
-            .then((data) => {
-              console.log(data)
-              if (self.vipuser_info) {
-                self.leyouka.name='乐游卡('+self.vipuser_info.balance+'元)'
-                self.leyouka.isVip = data.obj.factTotal>self.vipuser_info.balance ? false :true
-                self.leyouka.color = data.obj.factTotal>self.vipuser_info.balance ? '#333' :'#f56f1c';
-              }else{
-                self.leyouka.name='乐游卡'
-                self.leyouka.isVip = false
-                self.leyouka.color = '#333'
-              }
-              console.log(self.leyouka.isVip)
-            })
-      self.value = '';
-      self.payPwdVisible = false;
-      self.dotShow = [false,false,false,false,false,false];
-      self.pwd = ''
-     
+      next() 
     }
   }   
 }
