@@ -28,10 +28,15 @@
             </div>
         </div>
         <div class="flex-center site-box">
-            <div class="site-box text-center text-large">
+            <div class="site-box text-center text-extra">
         	    <div>
         	        <span  style="border-bottom:1px solid #ddd">{{ date.year }}年{{ date.month }}月{{ date.day }}日</span>
         	        <span  style="border-bottom:1px solid #ddd">{{ date.hour }}:00</span>
+        	    </div>
+        	    <div class='top-gap'>
+        	        <span>购买</span>
+        	        <input class="text-extra text-center" style="width: 2rem" :value='1' disabled="true">
+        	        <span>天</span>
         	    </div>
        	    
             </div>
@@ -40,7 +45,7 @@
 	<mt-popup
         :visible.sync="popupForPlantform">
         <div
-            class= 'pop-opts text-large'
+            class= 'pop-opts text-large mint-popup-1'
             v-for= "item in plantforms"
             @click= 'submitPlantform(item.name)'
             >
@@ -93,7 +98,7 @@ export default {
 	},
 	methods: {
 		fetchAccount(){
-            this.$go('/pay')	
+            this.$go('/orderdetail', '123123123')	
 		},
 		switchPlantform(){
 			console.log(1)
@@ -139,10 +144,22 @@ span{
 .mint-popup{
 	width: 60%;
 	text-align: center;
-	padding: .2rem 0;
+	padding: .3rem 0;
 	border-radius: 8px;
 	top: 110px;
 	transform: translate3d(-50%,0,0);
+}
+.mint-popup-1:before {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border: solid transparent;
+    border-width: 10px;
+    border-bottom-color: #fff;
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: 45%;
 }
 .cushion {
 	bottom: 2.5rem;

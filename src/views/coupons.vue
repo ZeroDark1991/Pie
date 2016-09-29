@@ -134,7 +134,7 @@ export default {
         /*border-radius: 5%;*/
         margin-bottom:0.6rem;
         overflow:hidden;
-      }
+    }
     .cou-first{
       margin-top:0.8rem;
     }

@@ -1,48 +1,43 @@
 <template>
 <div class="page">
     <mt-header fixed title="我的">
-      <mt-button @click="$back('/home')" class="left" slot="left">
-        <span class="iconfont">&#xe609;</span> 
-      </mt-button>
+        <mt-button @click="$back('/home')" class="left" slot="left">
+            <span class="iconfont">&#xe609;</span> 
+        </mt-button>
     </mt-header>
     <!-- Cell -->
     <div class="container-top">
-      <mt-cell title="清除缓存" :value="cache" @click="cleanCache()"></mt-cell>
-      <mt-cell title="反馈" @click="go('/feedback')" is-link>
-      </mt-cell>
-      <mt-cell title="分享" @click="share()">
-          <span class="iconfont icon-fenxiang">&#xe614;</span>
-      </mt-cell>
-      <mt-cell title="客服" @click="callAsistant()">
-          <span class="iconfont icon-tel">&#xe606;</span>
-      </mt-cell>
-      <mt-cell title="安全选项" @click="go('/safety_options')" is-link>
-      </mt-cell>
-      <mt-cell title="更多" @click="go('/more')" is-link>
-      </mt-cell>
-      
+        <avatar-box
+            :title= "userInfo.title"
+            :img-url= "userInfo.imgUrl"
+            :tel= "userInfo.tel"
+            :address= "userInfo.address"
+            style= "margin:1.5rem 0;"
+            @click= "detail()">
+        </avatar-box>
+        <div style="margin-top: 2rem">
+            <mt-cell title="优惠券" @click="$go('/coupons')">
+               <span class="text-grey">666张</span>
+               <span class="iconfont icon-fenxiang">&#xe608;</span>
+            </mt-cell>
+            <mt-cell title="订单列表" @click="$go('/orderlist')">
+               <span class="iconfont icon-fenxiang">&#xe608;</span>
+            </mt-cell>
+            <mt-cell title="消息中心" @click="$go('/newslist')">
+               <span class="iconfont icon-fenxiang">&#xe608;</span>
+            </mt-cell>               
+        </div>
+
     </div>  
-    <mt-button class="quit bk-red no-round" type="danger">退出当前账号</mt-button>
+    <!-- <mt-button class="quit bk-red no-round" type="danger">退出当前账号</mt-button> -->
 </div>
 </template>
 
-<style scoped>
-  .quit{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 50px;
-  }
-  .iconfont{
-    font-size:0.8rem;
-  }
-</style>
-
 <script>
 import Service from '../service'
-import { Toast } from 'mint-ui'
 import IconCell from '../components/iconcell'
 import { setUser_store_info } from '../vuex/actions'
+import AvatarBox from '../components/AvatarBox'
 
 export default {
 	vuex: {
@@ -55,25 +50,24 @@ export default {
   	},
   data () {
     return {
-		  count: 2,
-		  showLoader: true,
-      cache: "0kb"
+        userInfo:{
+            title: 'ZeroDarkThrity',
+            imgUrl: 'https://pbs.twimg.com/profile_images/446566229210181632/2IeTff-V.jpeg',
+            tel: '13859098888',
+            address: ''
+        }
     }
   },
   components:{
     IconCell,
+    AvatarBox
   },
   methods:{
     quit(){//退出账号
-      let self = this;
-      //调退账号接口
-      return Service(this, 'sayogi', 'Logout', '')
-        .then((data) => {
-          if(!data) return;
-          self.$Toast("账号已退出");
-          self.setUser_store_info({});
-          app_show_login_f("login_callback_f");
-        })
+      
+    },
+    detail(){
+        this.$Toast('invoke detail page')
     }
   },
   route: {
@@ -87,3 +81,15 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .quit{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+  }
+  .iconfont{
+    font-size:0.8rem;
+  }
+</style>

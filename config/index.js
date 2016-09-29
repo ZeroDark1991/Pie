@@ -27,23 +27,8 @@ module.exports = {
         changeOrigin: true,
         headers: {
           'userId' : '1'
-          //14672926401733101 老王手机18268256860 
-          //170--->145017402946300201   
-          //14657989018603101 账号15269257204  
-          //14695023791373101  权哥手机15158928697
         }
-      },
-      '/qrCode': {
-        target: 'http://dev.sayogi.cn/qrCode',
-        secure: false,
-        changeOrigin: true
-      },
-      '/native_cross': {
-        target: 'http://dev.sayogi.cn/native_cross',
-        ignorePath: true,
-        secure: false,
-        changeOrigin: true
-      }         
+      }        
     }
   }
 }

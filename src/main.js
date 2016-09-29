@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import app from './App'
 require('es6-promise').polyfill()
 
+import _ from 'lodash/core'
+
 //router
 import VueRouter from 'vue-router'
 import { configRouter } from './route-config'
@@ -19,7 +21,6 @@ import './assets/trainsition.css'
 import Mint from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import './assets/mint_cover.css'
-
 
 import { MessageBox } from 'mint-ui'
 import { Toast } from 'mint-ui'
@@ -55,7 +56,7 @@ Vue.prototype.$Indicator = Indicator
 function _MyToast(message){
 	Toast({
 		message: message,
-		duration: 2000
+		duration: 1500
 	})
 }
 
@@ -70,3 +71,4 @@ sync(store, router)
 router.start(App, '#app')
 
 window._Router = router
+window._ = _

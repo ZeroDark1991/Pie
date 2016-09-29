@@ -22,14 +22,12 @@
           align = 'right'
           :value.sync="value"
           :options="[
-                {label: '微信', value: 'weixin', icon: '&#xe60d;', icon_color: '#46dd6d',noVip:true},
-                {label: '支付宝', value: 'zhifubao', icon: '&#xe60e;', icon_color: '#06b8f3',noVip:true},
-                {label: leyouka.name, value: 'leyouka', icon: '&#xe61a;', icon_color: leyouka.color,noVip:leyouka.isVip,disabled:!leyouka.isVip}
+                {label: '微信支付', value: 'weixin', icon: '&#xe604;', icon_color: '#1AAD19',noVip:true}
             ]">
       </sw-radio>
     </div>
     <!-- 确认支付 -->
-    <div class="orderPay bottomHeight" @click="toPay()">确认支付</div>
+    <div class="orderPay bottomHeight text-extra" @click="toPay()">确认支付</div>
     </div>
 
     <!-- 输入密码 -->
@@ -233,11 +231,10 @@ export default {
   }
   .orderPay{
     color:#fff;
-    font-size:1rem;
     height:2.5rem;
     line-height:2.5rem;
     text-align:center;
-    background:#33d29f;
+    background:#1AAD19;
     position:absolute;
     width:100%;
     bottom:0;

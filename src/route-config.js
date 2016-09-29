@@ -17,6 +17,21 @@ export function configRouter (router) {
       component: function(resolve) {
         require(['./views/pay.vue'],resolve) 
       }
+    },
+    '/orderdetail/:orderId':{
+      component: function(resolve){
+        require(['./views/orderDetail.vue'],resolve)
+      }
+    },
+    '/orderlist': {
+      component: function(resolve){
+        require(['./views/orderlist.vue'], resolve)
+      }
+    },
+    '/newslist': {
+      component: function(resolve){
+        require(['./views/newslist.vue'], resolve)
+      }
     }
 
     // // not found handler

@@ -146,7 +146,13 @@ input{
 .bk-blue{
 	background-color:#0083ff !important
 }
+.bk-green{
+	background-color: #1AAD19 !important
+}
 /*font-size*/
+.text-extra{
+	font-size: .9rem !important
+}
 .text-large{
 	font-size: .8rem !important
 }
