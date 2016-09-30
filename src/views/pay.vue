@@ -27,31 +27,8 @@
       </sw-radio>
     </div>
     <!-- 确认支付 -->
-    <div class="orderPay bottomHeight text-extra" @click="toPay()">确认支付</div>
-    </div>
-
-    <!-- 输入密码 -->
-      <mt-popup :visible.sync="payPwdVisible" popup-transition="popup-fade">
-        <div id="payModel_box">
-          <div class="payModel_text">请输入支付密码</div>
-          <div class="payModel_content" @click="openFocus()">
-
-
-            <input v-model="pwd" id="payPwd_input" maxlength="6" class="ui-input i-text" oncontextmenu="return false" onpaste="return false" autofocus="autofocus" oncopy="return false" oncut="return false" autocomplete="off" type="tel">
-            <div class="sixDigitPassword">
-                <i v-for="i in dotShow.length"><b v-show="dotShow[$index]"></b></i>
-                <span class="guangbiao" style="left:0px;"></span>
-            </div>
-
-
-          </div>  
-          <div class="payModel_text" style="margin-top:.5rem;position:relative;">
-            <span @click="LYpay()" class="payModel_btn {{pwd.trim().length==6?'text-cyan':'text-grey' }}" plain>确认</span>
-            <span @click="go('/forget_paykey')" class="payModel_forgetPwd text-small text-grey">忘记密码</span>
-          </div>
-          
-        </div>
-    </mt-popup>    
+    <div class="orderPay text-large" @click="toPay()">确认支付</div>
+    </div>   
 </div>  
 </template>
 <script>
@@ -231,7 +208,7 @@ export default {
   }
   .orderPay{
     color:#fff;
-    height:2.5rem;
+    height:2.3rem;
     line-height:2.5rem;
     text-align:center;
     background:#1AAD19;

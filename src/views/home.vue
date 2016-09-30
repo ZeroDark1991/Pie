@@ -30,8 +30,8 @@
         <div class="flex-center site-box">
             <div class="site-box text-center text-extra">
         	    <div>
-        	        <span  style="border-bottom:1px solid #ddd">{{ date.year }}年{{ date.month }}月{{ date.day }}日</span>
-        	        <span  style="border-bottom:1px solid #ddd">{{ date.hour }}:00</span>
+        	        <span  style="border-bottom:1px solid #ddd">{{ currentdate.year }}年{{ currentdate.month }}月{{ currentdate.day }}日</span>
+        	        <span  style="border-bottom:1px solid #ddd">{{ currentdate.hour }}:00</span>
         	    </div>
         	    <div class='top-gap'>
         	        <span>购买</span>
@@ -56,36 +56,23 @@
 </template>
 
 <script>
-// Ajax request module, return a Promise
 import Service from '../service'
 import {
 	setUser_store_info,
-	setVipuser_store_info,
-	setUser_su_store_info
 } from '../vuex/actions'
 
 export default {
 	vuex: {
 		getters: {
-			user_info: state => state.user_store,
-			vipuser_info: state => state.vipuser_store,
-			su_store_info: state => state.user_su_store
+			currentdate: state => state.currentdate,
 		},
 		actions: {
 			setUser_store_info,
-			setVipuser_store_info,
-			setUser_su_store_info
 		}
   	},
 	data () {
 		return {
 			popupForPlantform: false,
-            date:{
-            	year: '',
-            	month: '',
-            	day: '',
-            	hour: ''
-            },
             plantforms:[
                 { name: '爱奇艺' },
                 { name: '优酷' },
@@ -110,13 +97,7 @@ export default {
 		}
 	},
 	created(){
-		let today = new Date()
-		this.date = {
-			year: today.getFullYear(),
-			month: today.getMonth() + 1,
-			day: today.getDate(),
-			hour: today.getHours()
-		}
+
 	},
 	route: {
 		data ({ to, next }) {

@@ -1,19 +1,14 @@
 <template>
 <div>
 	<div class="box">
-		<div v-if='imgUrl' class="avatar_container">
-			<img :src="imgUrl" class="avatar_img bk-grey">
+		<div v-if="imgUrl" class="news_container">
+			<img :src="imgUrl" class="news_img bk-grey">
 		</div>
 		<div class="flex-item text-left">
-			<div id="title">{{title}}</div>
-			<div v-if='tel' id="tel">
-			    <i class="iconfont text-large">&#xe607;</i>
-			    {{tel}}
+			<div id="title">{{ title }}</div>
+			<div v-if="content" id="content" class="text-tiny">
+			    {{ content }}
 			</div>
-<!-- 			<div id="address">
-			<i class="iconfont text-extra">&#xe61b;</i>
-			{{address}}
-			</div> -->
 		</div>
 	</div>
 </div> 	
@@ -23,7 +18,7 @@
 		data(){
 			return {}
 		},
-		props:['title', 'imgUrl', 'tel', 'address']
+		props:['title', 'imgUrl', 'content']
 	}
 </script>
 <style scoped>
@@ -40,30 +35,43 @@
 		flex-wrap: nowrap;
 		justify-content: flex-start;
 		align-items: center;
-		padding: .9rem;
+		padding: .4rem;
 		background-color: #fff;
 		position:relative;
-		margin: .5rem 0;
 	}
+	.box:after{
+        color: #d9d9d9;
+        content: " ";
+        width: 100%;
+        height: 1;
+        border-top: 1px solid;
+        left: 0;
+        position: absolute;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+        transform: scaleY(.5);
+    }
+    .box:after {
+    	bottom: 0;
+    }
 	.flex-item{
 		flex: 1 1 auto;
 	}
-	.avatar_container{
+	.news_container{
 		vertical-align: middle;
-	}
-	.avatar_img{
 		width: 3rem;
-		height: 3rem;
+	}
+	.news_img{
+		width: 2rem;
+		height: 2rem;
 		border-radius: 50%;
-		margin-right: 1.2rem; 
 	}
 	#title{
 		margin-bottom: .2rem;
-		font-size: .9rem;
 	}
-	#tel, #address{
+	#content{
 		margin-bottom: .2rem;
-	    color: #606060;
+	    color: #777;
 	    vertical-align: middle;
 	}
 </style>

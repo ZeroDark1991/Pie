@@ -2,8 +2,8 @@
 <div class="page">
   
     <mt-header fixed title="我的优惠券">
-      	<mt-button @click="$back('/home')" class="left" slot="left">
-          <span class="iconfont">&#xe602;</span>  
+      	<mt-button @click="$back('/settings')" class="left" slot="left">
+          <span class="iconfont">&#xe609;</span>  
         </mt-button>
     </mt-header>
     <!-- data is loading --> 

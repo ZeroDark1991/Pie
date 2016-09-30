@@ -124,6 +124,12 @@ input{
 .cell-iconfont{
 	font-size: .5rem;
 }
+.text-green{
+	color: #1AAD19 !important
+}
+.text-steelgrey{
+	color: #99a7b5!important
+}
 /*background-color*/
 .bk-cyan{
 	background-color:#33d29f !important
@@ -138,7 +144,7 @@ input{
 	background-color:#f56f1c !important
 }
 .bk-grey{
-	background-color:#9e9e9e !important
+	background-color:#eee !important
 }
 .bk-lightgrey{
 	background-color:#d7d7d7 !important
@@ -148,6 +154,9 @@ input{
 }
 .bk-green{
 	background-color: #1AAD19 !important
+}
+.bk-steelgrey{
+	background-color: #99a7b5!important
 }
 /*font-size*/
 .text-extra{
@@ -197,4 +206,7 @@ input{
 .bottomHeight{
 	height:2.5rem !important;
 	line-height:2.5rem !important;
+}
+.right-gap {
+	margin-right: .2rem;
 }

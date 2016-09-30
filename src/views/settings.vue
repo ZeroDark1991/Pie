@@ -15,16 +15,19 @@
             style= "margin:1.5rem 0;"
             @click= "detail()">
         </avatar-box>
-        <div style="margin-top: 2rem">
+        <div style="margin-top: 2rem;">
             <mt-cell title="优惠券" @click="$go('/coupons')">
-               <span class="text-grey">666张</span>
-               <span class="iconfont icon-fenxiang">&#xe608;</span>
+                <span class="iconfont text-red right-gap" slot='icon'>&#xe613;</span>
+                <span class="text-steelgrey">666张</span>
+                <span class="iconfont icon-fenxiang">&#xe608;</span>
             </mt-cell>
             <mt-cell title="订单列表" @click="$go('/orderlist')">
-               <span class="iconfont icon-fenxiang">&#xe608;</span>
+                <span class="iconfont text-steelgrey right-gap" slot='icon'>&#xe611;</span>
+                <span class="iconfont icon-fenxiang">&#xe608;</span>
             </mt-cell>
             <mt-cell title="消息中心" @click="$go('/newslist')">
-               <span class="iconfont icon-fenxiang">&#xe608;</span>
+                <span class="iconfont text-steelgrey right-gap" slot='icon'>&#xe612;</span>
+                <span class="iconfont icon-fenxiang">&#xe608;</span>
             </mt-cell>               
         </div>
 
@@ -47,11 +50,11 @@ export default {
       actions: {
         setUser_store_info
       }
-  	},
+  },
   data () {
     return {
         userInfo:{
-            title: 'ZeroDarkThrity',
+            title: 'ZeroDarkThirty',
             imgUrl: 'https://pbs.twimg.com/profile_images/446566229210181632/2IeTff-V.jpeg',
             tel: '13859098888',
             address: ''
