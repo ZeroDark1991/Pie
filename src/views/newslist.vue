@@ -20,7 +20,8 @@
                         :title= "news.title"
                         :img-url= "news.imgUrl"
                         :content= "news.content"
-                        @click= "detail()" >
+                        @click= "$go('/newsdetail', news.id)"
+                        >
                     </news>
 			    </div>
 		    </div>
@@ -36,11 +37,13 @@
 			return {
                 newslist:[
                     {
+                    	id:111,
                     	imgUrl: 'https://pbs.twimg.com/profile_images/446566229210181632/2IeTff-V.jpeg',
                     	title: '新订单通知',
                     	content: '你有一张新的在线订单，点击查看....'
                     },
                     {
+                    	id:112,
                     	imgUrl: 'https://pbs.twimg.com/profile_images/446566229210181632/2IeTff-V.jpeg',
                     	title: '新订单通知',
                     	content: '你有一张新的在线订单，点击查看.'

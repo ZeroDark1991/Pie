@@ -22,41 +22,6 @@
 	}
 </script>
 <style scoped>
-	.box{
-		/*
-         * flex-direction: 主轴方向;
-         * flex-wrap: 换行;
-         * justify-content: 主轴方向对齐;
-         * align-items: 交叉轴方向对齐;
-		 */
-		display: -webkit-flex;
-		display: flex;
-		flex-direction: row; 
-		flex-wrap: nowrap;
-		justify-content: flex-start;
-		align-items: center;
-		padding: .4rem;
-		background-color: #fff;
-		position:relative;
-	}
-	.box:after{
-        color: #d9d9d9;
-        content: " ";
-        width: 100%;
-        height: 1;
-        border-top: 1px solid;
-        left: 0;
-        position: absolute;
-        -webkit-transform-origin: 0 0;
-        transform-origin: 0 0;
-        transform: scaleY(.5);
-    }
-    .box:after {
-    	bottom: 0;
-    }
-	.flex-item{
-		flex: 1 1 auto;
-	}
 	.news_container{
 		vertical-align: middle;
 		width: 3rem;

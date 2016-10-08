@@ -2,29 +2,29 @@
 <div>
 	<div class="box text-tiny">
 		<div class="flex-item text-left">
-			<div id="title">
-			    订单编号：{{ order.id }}
-			    <span v-if='order.status' class="text-red"> [{{ order.status }}]</span>
-			</div>
-			<div id="title">下单时间：{{ order.time }}</div>
-			<div id="title">产品明细：{{ order.detail }}</div>
+<!-- 			<div id="title">
+			    订单编号：{{ coupon.id }}
+			    <span v-if='coupon.status' class="text-red"> [{{ coupon.status }}]</span>
+			</div> -->
+			<div id="title">派派券内容：{{ coupon.content }}</div>
+			<div id="title">有效时间：{{ coupon.date }}</div>
 		</div>
-		<div class="order_container">
+<!-- 		<div class="coupon_container">
 			<div
 			    class="text-right text-red price"
 			    >
-				<span class="text-extra">{{ order.price }}</span>
+				<span class="text-extra">{{ coupon.price }}</span>
 				<span class="text-large">元</span>
 			</div>
 			<div
-			    v-if= "order.coupon"
+			    v-if= "coupon.coupon"
 			    class= "text-right text-red"
 			    style= "margin-top: .3rem"
 			    >
 				<span class="iconfont text-small">&#xe603;</span>
-				<span class="text-small">{{order.coupon}}</span>
+				<span class="text-small">{{coupon.coupon}}</span>
 			</div>
-		</div>		
+		</div>	 -->	
 	</div>
 </div> 	
 </template>
@@ -33,15 +33,15 @@
 		data(){
 			return {}
 		},
-		props:['order']
+		props:['coupon']
 	}
 </script>
-<style scoped lang='stylus'>
+<style scoped lang="stylus">
 .price
     border-radius 5px
-.order_container
+.coupon_container
     width 4rem
-.order_img
+.coupon_img
     width 2rem
     height 2rem
     border-radius 50%

@@ -1,12 +1,3 @@
-<style>
-  .v-link-active {
-
-  }
-  [v-cloak] {
-    display: none;
-  }
-</style>
-
 <template>
     <div>
         <router-view :transition="transfer" keep-alive></router-view>
@@ -32,3 +23,9 @@ export default {
   }
 }
 </script>
+<style lang='stylus'>
+.v-link-active
+
+[v-cloak]
+    display none
+</style>

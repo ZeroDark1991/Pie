@@ -66,6 +66,7 @@ table {
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+    padding: 0;
 }
 .container-top{
     position: absolute;

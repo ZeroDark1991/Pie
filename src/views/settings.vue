@@ -16,7 +16,7 @@
             @click= "detail()">
         </avatar-box>
         <div style="margin-top: 2rem;">
-            <mt-cell title="优惠券" @click="$go('/coupons')">
+            <mt-cell title="优惠券" @click="$go('/couponlist')">
                 <span class="iconfont text-red right-gap" slot='icon'>&#xe613;</span>
                 <span class="text-steelgrey">666张</span>
                 <span class="iconfont icon-fenxiang">&#xe608;</span>

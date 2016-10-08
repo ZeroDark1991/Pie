@@ -5,8 +5,8 @@ export function configRouter (router) {
     '/home': {
       component: require('./views/home.vue')
     },
-    '/coupons': {
-      component: require('./views/coupons.vue')
+    '/couponlist': {
+      component: require('./views/couponlist.vue')
     },
     '/settings': {
       component: function(resolve) {
@@ -31,6 +31,11 @@ export function configRouter (router) {
     '/newslist': {
       component: function(resolve){
         require(['./views/newslist.vue'], resolve)
+      }
+    },
+    '/newsdetail/:newsId': {
+      component: function(resolve){
+        require(['./views/newsDetail.vue'], resolve)
       }
     }
 

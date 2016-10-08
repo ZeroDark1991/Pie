@@ -40,13 +40,15 @@
                     	detail: '爱奇艺账号 9.11-9.13',
                     	price: 2,
                     	coupon: '7折',
+                    	status: '已完成'
                     },
                     {
                     	id: 12222222313,
                     	time: '2016-2-2 14:00',
                     	detail: '爱奇艺账号 9.11-9.13',
                     	price: 0.2,
-                    	coupon: '9折',
+                    	coupon: null,
+                    	status: '未付款'
                     }                    
                 ]
 			}

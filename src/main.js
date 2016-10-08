@@ -21,6 +21,7 @@ import './assets/trainsition.css'
 import Mint from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import './assets/mint_cover.css'
+import './assets/mix.styl'
 
 import { MessageBox } from 'mint-ui'
 import { Toast } from 'mint-ui'
