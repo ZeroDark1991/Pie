@@ -38,7 +38,12 @@ export default {
                     type: '',
                     content: '爱奇艺2元抵用券',
                     date: '2016.9.1-2016.12.1'
-                }
+                },
+                {
+                    type: '',
+                    content: '爱奇艺0.2元抵用券',
+                    date: '2016.9.1-2016.12.1'
+                }                
             ]
         }
     },
@@ -51,11 +56,12 @@ export default {
     },
     route: {
         data ({ to,next }) {
-            return Service.bind(this)('powerShop', 'UserCouponFetch', '')
-            .then((data) => {
-                console.log(data)
-                //Write callBack codes here!
-            })  
+            // return Service.bind(this)('powerShop', 'UserCouponFetch', '')
+            // .then((data) => {
+            //     console.log(data)
+            //     //Write callBack codes here!
+            // })
+            next()
         },//页面加载完成执行
         deactivate ({ next }) {
             //Triggers when component destroys

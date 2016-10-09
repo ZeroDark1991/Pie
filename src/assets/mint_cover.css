@@ -19,6 +19,9 @@
 .mint-cell{
 	font-size: .7rem;
 }
+.page .mint-field .mint-cell:after{
+	border-top: none
+}
 .mint-cell-text{
 	color: #333
 }

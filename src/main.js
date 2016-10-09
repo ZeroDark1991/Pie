@@ -1,14 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import app from './App'
-require('es6-promise').polyfill()
-
-import _ from 'lodash/core'
+// require('es6-promise').polyfill()
 
 //router
 import VueRouter from 'vue-router'
 import { configRouter } from './route-config'
-import { sync } from 'vuex-router-sync'
+// import { sync } from 'vuex-router-sync'
 
 //vuex
 import store from './vuex/store'
@@ -67,9 +65,8 @@ const App = Vue.extend(app)
 // configure router
 configRouter(router)
 
-sync(store, router)
+// sync(store, router)
 
 router.start(App, '#app')
 
 window._Router = router
-window._ = _

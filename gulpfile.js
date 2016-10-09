@@ -4,67 +4,33 @@ var sftp = require('gulp-sftp')
 gulp.task('deploy',function(){
 	gulp.src('dist/static/css/*.css')
 		.pipe(sftp({
-			host: '120.26.77.94',
+			host: '120.26.225.222',
 			user: 'root',
-			pass: '123123FFFfff',
-			remotePath: '/web/workspace/powerbos/wap_sayogi_custom/center/static/css'
+			pass: 'npc3#3com20161007',
+			remotePath: '/web/pie/static/css'
 		}))
 
 	gulp.src('dist/static/img/*')
-	.pipe(sftp({
-		host: '120.26.77.94',
-		user: 'root',
-		pass: '123123FFFfff',
-		remotePath: '/web/workspace/powerbos/wap_sayogi_custom/center/static/img'
-	}))	
+	    .pipe(sftp({
+		    host: '120.26.225.222',
+		    user: 'root',
+		    pass: 'npc3#3com20161007',
+		    remotePath: '/web/pie/static/img'
+	    }))	
 
 	gulp.src('dist/static/js/*.js')
 		.pipe(sftp({
-			host: '120.26.77.94',
+			host: '120.26.225.222',
 			user: 'root',
-			pass: '123123FFFfff',
-			remotePath: '/web/workspace/powerbos/wap_sayogi_custom/center/static/js'
+			pass: 'npc3#3com20161007',
+			remotePath: '/web/pie/static/js'
 		}))	
 
 	gulp.src('dist/*')
 		.pipe(sftp({
-			host: '120.26.77.94',
+			host: '120.26.225.222',
 			user: 'root',
-			pass: '123123FFFfff',
-			remotePath: '/web/workspace/powerbos/wap_sayogi_custom/center'
-		}))		
-})
-
-gulp.task('deployQa',function(){
-	gulp.src('dist/static/css/*.css')
-		.pipe(sftp({
-			host: '121.40.250.161',
-			user: 'root',
-			pass: '123123FFFfff',
-			remotePath: '/web/workspace/powerbos/wap_sayogi_custom/center/static/css'
-		}))
-
-	gulp.src('dist/static/img/*')
-	.pipe(sftp({
-		host: '121.40.250.161',
-		user: 'root',
-		pass: '123123FFFfff',
-		remotePath: '/web/workspace/powerbos/wap_sayogi_custom/center/static/img'
-	}))	
-
-	gulp.src('dist/static/js/*.js')
-		.pipe(sftp({
-			host: '121.40.250.161',
-			user: 'root',
-			pass: '123123FFFfff',
-			remotePath: '/web/workspace/powerbos/wap_sayogi_custom/center/static/js'
-		}))	
-
-	gulp.src('dist/*')
-		.pipe(sftp({
-			host: '121.40.250.161',
-			user: 'root',
-			pass: '123123FFFfff',
-			remotePath: '/web/workspace/powerbos/wap_sayogi_custom/center'
+			pass: 'npc3#3com20161007',
+			remotePath: '/web/pie'
 		}))		
 })

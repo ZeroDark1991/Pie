@@ -1,28 +1,5 @@
-/*
- * set设置、add添加
- * 洗车订单与其他订单
- */
-export const setProductlist_Wash = ({ dispatch }, arr) => {
-    dispatch('SET_PRODUCTLIST_WASH', arr)
-}
-
-export const addProduct_Wash = ({ dispatch }, arr) => {
-    dispatch('ADD_PRODUCT_WASH', arr)
-}
-
-export const setProductlist_Rest = ({ dispatch }, arr) => {
-    dispatch('SET_PRODUCTLIST_REST', arr)
-}
-
-export const addProduct_Rest = ({ dispatch }, arr) => {
-    dispatch('ADD_PRODUCT_REST', arr)
-}
-export const changeProduct_Wash = ({ dispatch }, index,status,orderStatus) => {
-    dispatch('CHANGE_PRODUCT_WASH',  index,status,orderStatus)
-}
-
-export const changeProduct_Rest = ({ dispatch },  index,status,orderStatus) => {
-    dispatch('CHANGE_PRODUCT_REST',  index,status,orderStatus)
+export const setCurrentPlantform = ({dispatch}, data) => {
+    dispatch('SET_CURRENT_PLANTFORM', data)
 }
 /*
  * set设置

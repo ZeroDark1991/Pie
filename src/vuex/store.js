@@ -26,7 +26,12 @@ const state = {
     dirty: {
         newslist: true,
     },
-    currentdate,
+    plantform: {
+        currentPlantform: {
+            name: '爱奇艺'
+        }
+    },
+    currentdate: today,
 }
 
 const mutations = {
@@ -41,6 +46,10 @@ const mutations = {
     ['SET_VIPUSER_STORE_INFO'] (state, data) {
         state.vipuser_store = data
     },
+    // plantform
+    ['SET_CURRENT_PLANTFORM'] (state, data){
+        state.plantform.currentPlantform = data
+    }
 }
 
 export default new Vuex.Store({

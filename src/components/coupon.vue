@@ -9,32 +9,32 @@
 			<div id="title">派派券内容：{{ coupon.content }}</div>
 			<div id="title">有效时间：{{ coupon.date }}</div>
 		</div>
-<!-- 		<div class="coupon_container">
-			<div
+		<div class="coupon_container">
+<!-- 			<div
 			    class="text-right text-red price"
 			    >
 				<span class="text-extra">{{ coupon.price }}</span>
 				<span class="text-large">元</span>
-			</div>
+			</div> -->
 			<div
-			    v-if= "coupon.coupon"
-			    class= "text-right text-red"
-			    style= "margin-top: .3rem"
+			    class= "text-right"
 			    >
-				<span class="iconfont text-small">&#xe603;</span>
-				<span class="text-small">{{coupon.coupon}}</span>
+				<img :src="imgUrl" width="40px">
 			</div>
-		</div>	 -->	
+		</div>		
 	</div>
 </div> 	
 </template>
 <script>
-	export default {
-		data(){
-			return {}
-		},
-		props:['coupon']
-	}
+import qiyi from '../assets/qiyi.png'
+export default {
+	data(){
+		return {
+			imgUrl: qiyi
+		}
+	},
+	props:['coupon']
+}
 </script>
 <style scoped lang="stylus">
 .price

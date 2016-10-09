@@ -8,8 +8,7 @@
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
     "test": "",
-    "deploy": "gulp deploy",
-    "deployQa": "gulp deployQa"
+    "deploy": "gulp deploy"
   },
   "dependencies": {
     "babel-runtime": "^6.0.0",
