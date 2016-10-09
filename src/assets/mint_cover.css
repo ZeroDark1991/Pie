@@ -88,6 +88,10 @@
     transform: translateY(-50%) rotate(45deg); 
 }
 
+.mint-field .mint-cell-title{
+	padding-left:1rem
+}
+
 /*email input*/
 #emailFeild label.mint-cell-title{
     width:20%;

@@ -29,10 +29,9 @@
     	        点击来个账号
     	    </div>            	    
 	    </div>
-        <div class="form—field text-center">
+        <div class="form—field">
             <mt-field
                 label="起始时间"
-                placeholder="datetime"
                 type="datetime"
                 :value="formatDate"
                 :disabled="true"
@@ -40,14 +39,24 @@
             </mt-field>
             <mt-field
                 label="购买天数"
-                placeholder="请输入密码"
                 type="number"
                 :disabled="true"
                 value="1">
             </mt-field>       	
         </div>
         <div class="accout-area top-gap">
-        	111
+            <mt-field
+                label="当前账号"
+                type="text"
+                :value="'accountpie@163.com'"
+                :disabled="true">
+            </mt-field>
+            <mt-field
+                label="密码"
+                type="number"
+                :disabled="true"
+                value="123456778">
+            </mt-field>         	
         </div>   
 	</div>
 	<!-- change plantforms -->
@@ -169,17 +178,6 @@ border-radius()
 	border-radius(8px)
 	top 68px
 	transform translate3d(-50%,0,0)
-// .mint-popup-1-item:before
-//     display inline-block
-//     width 0
-//     height 0
-//     border solid transparent
-//     border-width 10px
-//     border-bottom-color #fff
-//     content ''
-//     position absolute
-//     top -20px
-//     right 45%
 .cushion
 	bottom 2.5rem
     position absolute
@@ -208,5 +206,5 @@ border-radius()
 	right 1rem
 	top .8rem
 .accout-area
-	background-color #fff
+	background-color #fff	
 </style>
