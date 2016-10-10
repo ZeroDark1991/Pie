@@ -75,8 +75,7 @@ export default {
         chosenCouponValue(){
             if(this.couponlist.length > 0 && this.chosenCoupon)
                 // 根据选中的优惠券的id取出内容
-                let r = this.couponlist.find(item => item.id == this.chosenCoupon)
-                return r.content
+                return this.couponlist.find(item => item.id == this.chosenCoupon)
             else
                 return '几张可用'
         }
