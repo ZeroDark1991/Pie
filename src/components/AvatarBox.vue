@@ -6,8 +6,8 @@
 		</div>
 		<div class="flex-item text-left">
 			<div id="title">{{title}}</div>
-			<div v-if='tel' id="tel">
-			    <i class="iconfont text-large">&#xe607;</i>
+			<div v-if='tel' id="tel" class="text-large">
+			    <i class="iconfont">&#xe607;</i>
 			    {{tel}}
 			</div>
 <!-- 			<div id="address">

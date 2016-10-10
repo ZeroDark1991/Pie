@@ -31,7 +31,7 @@ body {
 	line-height: 1.5;
 	font-size: 0.7rem;
 	background-color: #efefef;
-	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Hiragino Sans GB", "Microsoft Yahei", "\5FAE\8F6F\96C5\9ED1", Arial, Helvetica, STHeiti, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 ol, ul {
 	list-style: none;
@@ -118,7 +118,7 @@ input{
 	color:#f56f1c !important
 }
 .text-grey{
-	color:#9e9e9e !important
+	color:#777 !important
 }
 .text-lightgrey{
 	color:#d7d7d7 !important
@@ -168,7 +168,7 @@ input{
 }
 /*font-size*/
 .text-extra{
-	font-size: .9rem !important
+	font-size: 1rem !important
 }
 .text-large{
 	font-size: .8rem !important

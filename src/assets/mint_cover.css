@@ -92,6 +92,18 @@
 	padding-left:1rem
 }
 
+.mint-cell-value .mt-range{
+	width:100%	
+}
+.mt-range-progress{
+	background-color: #0083ff
+}
+input:disabled, textarea:disabled {
+    color: #555;
+}
+input[disabled]{
+    color: #555;
+}
 /*email input*/
 #emailFeild label.mint-cell-title{
     width:20%;

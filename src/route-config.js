@@ -8,6 +8,9 @@ export function configRouter (router) {
     '/couponlist': {
       component: require('./views/couponlist.vue')
     },
+    '/activecoupons': {
+      component: require('./views/activeCoupons.vue')
+    },    
     '/settings': {
       component: function(resolve) {
         require(['./views/settings.vue'],resolve) 

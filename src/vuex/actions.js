@@ -1,3 +1,11 @@
+//Coupons actions
+export const setCouponList =({dispatch}, data) => {
+	dispatch('SET_COUPONLIST', data)
+}
+export const setChosenCoupon = ({dispatch}, data) => {
+	dispatch('SET_CHOSENCOUPON', data)
+}
+//Plantforms actions
 export const setCurrentPlantform = ({dispatch}, data) => {
     dispatch('SET_CURRENT_PLANTFORM', data)
 }

@@ -1,7 +1,7 @@
 <template>
 <div class="page">
     <mt-header fixed title="我的优惠券">
-      	<mt-button @click="$back('/settings')" class="left" slot="left">
+      	<mt-button @click="$back('/orderdetail','123123')" class="left" slot="left">
             <span class="iconfont">&#xe609;</span>  
         </mt-button>
     </mt-header>
@@ -10,15 +10,16 @@
 <!--         <div v-if="$loadingRouteData" class="loading">
             <mt-spinner type="triple-bounce" color="#f56f1c" :size="20"></mt-spinner>
         </div> -->
-        <template  v-if='couponlist.length == 0'>
+        <template  v-if='activeCouponlist.length == 0'>
             <div class="text-center" style="margin-top: 1rem">
                 <span>暂无可用优惠券</span>
             </div>            
         </template>
         <template v-else>
-            <div v-for='coupon in couponlist'>
+            <div v-for='coupon in activeCouponlist'>
                 <coupon
                     :coupon= "coupon"
+                    @click= "chooseCoupon(coupon.id)"
                     >
                 </order>
             </div>
@@ -28,31 +29,42 @@
 </template>
 
 <script>
-import Service from '../service'
 import Coupon from '../components/coupon.vue'
-import { setCouponList } from '../vuex/actions'
+import { setCouponList, setChosenCoupon } from '../vuex/actions'
 export default {
     vuex:{
         getters: {
             couponlist: state => state.couponlist,
         },
         actions: {
-            setCouponList
+            setCouponList,
+            setChosenCoupon
         }
     },
     data () {
         return {
         }
     },
+    computed:{
+        activeCouponlist(){
+        	return this.couponlist.map(item => {
+                if(item.id) return item
+        	})
+        }
+    },
     components:{
         Coupon
     },
     methods:{
+    	chooseCoupon(id){
+    		this.setChosenCoupon(id)
+    		this.$back('/orderdetail','123123')
+    	}
     },
     created(){
-        if(this.couponlist.length == 0)
-            //取得所有的优惠券 存入store
-            this.setCouponList([
+    	if(this.couponlist.length == 0)
+    		//取得所有的优惠券 存入store
+    	    this.setCouponList([
                 {
                     id: '001',
                     type: '',
@@ -65,7 +77,7 @@ export default {
                     content: '爱奇艺0.2元抵用券',
                     date: '2016.9.1-2016.12.1'
                 }                
-            ])
+            ])    	
     },
     route: {
         data ({ to,next }) {

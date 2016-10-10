@@ -31,7 +31,12 @@
         <div class="block">
             <mt-cell style="font-weight:bold;" title="支付信息"></mt-cell>
             <mt-cell title="应付金额" :value="orderDetail.factTotal"></mt-cell>
-            <mt-cell title="优惠券" :value="orderDetail.couponId"></mt-cell>
+            <mt-cell
+                title="优惠券"
+                :value="orderDetail.couponId"
+                @click="$go('/activecoupons')">
+                <span class="text-steelgrey">{{chosenCouponValue}}</span> 
+            </mt-cell>
         </div>
     </div>
       <!-- 去支付 v-if="" -->
@@ -46,35 +51,60 @@
 
 <script>
 import Service from '../service'
+import { setChosenCoupon } from '../vuex/actions'
 export default {
+    vuex:{
+        getters:{
+            couponlist: state => state.couponlist,
+            chosenCoupon: state => state.chosencoupon
+        },
+        actions:{
+            setChosenCoupon
+        }
+    },
 	data () {
 	    return {
-	        backRoute: '/home',
+	        backRoute: '',
 	        orderDetail:{
 	  	       status: 0
 	        },
 	        orderId:''
 	        }
 	},
+    computed:{
+        chosenCouponValue(){
+            if(this.couponlist.length > 0 && this.chosenCoupon)
+                // 根据选中的优惠券的id取出内容
+                let r = this.couponlist.find(item => item.id == this.chosenCoupon)
+                return r.content
+            else
+                return '几张可用'
+        }
+    },
 	methods:{
 	    openPOP(){
-	        this.popupVisible = true;
+	        this.popupVisible = true
 	    }
-	    },
-	    created(){
-		    console.log(11)
-	    },
-	    route: {
-	        data ({from, to, next}){
-                if(from.path == "/orderlist")
+	},
+    created(){},
+    route: {
+        data ({from, to, next}){
+            if(from.path){
+                //微信环境中from.path带上了额外的query属性，所以需要substring之后判断
+                if(from.path.substring(0,6) == "/order")
                     this.backRoute = '/orderlist'
                 else
                     this.backRoute = '/home'
-	        	next()
-	        },
-	        deactivate ({ next }) {
-	            next()
-	        }
+            }else{
+                this.backRoute = '/home'
+            }
+        	next()
+        },
+        deactivate ({ to, next }) {
+            // 除选择优惠券页面之外，清除当前选中优惠券信息
+            if(to.path.substring(0,7) != '/active') this.setChosenCoupon('')
+            next()
+        }
 	} 
 }
 </script>

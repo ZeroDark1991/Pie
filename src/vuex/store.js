@@ -17,21 +17,19 @@ const currentdate = {
 }
 
 const state = {
-    user_store:null,
-    car_store: {
-        info: null,
-        selected_brand: null,
-        selected_model: null,
-    },
+    user_store: null,
+    couponlist: [],
     dirty: {
         newslist: true,
     },
     plantform: {
         currentPlantform: {
-            name: '爱奇艺'
+            name: '爱奇艺',
+            bought: true
         }
     },
     currentdate: today,
+    chosencoupon: ''
 }
 
 const mutations = {
@@ -46,9 +44,16 @@ const mutations = {
     ['SET_VIPUSER_STORE_INFO'] (state, data) {
         state.vipuser_store = data
     },
-    // plantform
+    //plantform
     ['SET_CURRENT_PLANTFORM'] (state, data){
         state.plantform.currentPlantform = data
+    },
+    //coupons
+    ['SET_COUPONLIST'] (state, data){
+        state.couponlist = data
+    },
+    ['SET_CHOSENCOUPON'] (state, data){
+        state.chosencoupon = data
     }
 }
 

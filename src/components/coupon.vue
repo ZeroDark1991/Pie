@@ -1,6 +1,6 @@
 <template>
 <div>
-	<div class="box text-tiny">
+	<div class="box text-small">
 		<div class="flex-item text-left">
 <!-- 			<div id="title">
 			    订单编号：{{ coupon.id }}
