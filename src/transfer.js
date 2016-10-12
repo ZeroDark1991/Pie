@@ -18,6 +18,8 @@ export const $back = function(link, param){
 function closeToasts(){
     let toasts = document.querySelectorAll('.mint-toast')
     if (toasts.length > 0){
-        Array.from(toasts).forEach(item => item.parentNode.removeChild(item))
+        Array
+        .from(toasts)
+        .forEach(item => item.parentNode.removeChild(item))
     }
 }

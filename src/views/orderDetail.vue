@@ -34,7 +34,7 @@
             <mt-cell
                 title="优惠券"
                 :value="orderDetail.couponId"
-                @click="$go('/activecoupons')">
+                @click="chooseCoupon()">
                 <span class="text-steelgrey">{{chosenCouponValue}}</span> 
             </mt-cell>
         </div>
@@ -68,22 +68,29 @@ export default {
 	        orderDetail:{
 	  	       status: 0
 	        },
-	        orderId:''
-	        }
+	        orderId:'',
+            activecoupons:[]
+	    }
 	},
     computed:{
         chosenCouponValue(){
-            if(this.couponlist.length > 0 && this.chosenCoupon)
+            let activeCouponsAmount = this.activecoupons.length
+            if(activeCouponsAmount > 0 && this.chosenCoupon)
                 // 根据选中的优惠券的id取出内容
                 return this.couponlist.find(item => item.id == this.chosenCoupon)
             else
-                return '几张可用'
+                // 判断当前订单是否有可用优惠券
+                return activeCouponsAmount > 0 ? `${activeCouponsAmount}张可用` : '无可用优惠券'
         }
     },
 	methods:{
 	    openPOP(){
 	        this.popupVisible = true
-	    }
+	    },
+        chooseCoupon(){
+            if(this.activecoupons.length > 0) this.$go('/activecoupons')
+            else return
+        }
 	},
     created(){},
     route: {
@@ -94,7 +101,8 @@ export default {
                     this.backRoute = '/orderlist'
                 else
                     this.backRoute = '/home'
-            }else{
+            }
+            else{
                 this.backRoute = '/home'
             }
         	next()
@@ -108,47 +116,38 @@ export default {
 }
 </script>
 
-<style lang="less" scoped="">
-  .orderStatus{
-    color:#fff;
-    font-size:1rem;
-    height:2.5rem;
-    line-height:2.5rem;
-    text-align:center;
-  }
-  .bottom-bar{
-  	position: absolute;
-  	bottom: 0;
-  	width: 100%;
-  }
-  .block{
-      margin-top:0.5rem;
-  }
-  .goPay{
-    display:inline-block;
-    margin-left:1rem;
-    padding:0.6rem 1rem;
-    color:#fff;
-  }
-  .obtn{
-    display:inline-block;
-    margin-left:0.5rem;
-    font-size:0.9rem;
-    padding:0.2rem 0.8rem;
-    color:#33d29f;
-    border:1px solid #33d29f;
-    border-radius:0.5rem;
-  }
-  .orderDBTN{
-    margin-left:0.5rem;
-    border:1px solid #33d29f;
-    color:#33d29f;
-  }
-  .mint-cell:before{
-    height: 1px;
-  }
-  .mint-header.is-fixed{
-    z-index: 100000;
-  }
-
+<style lang="stylus" scoped>
+.orderStatus
+    color:#fff
+    font-size:1rem
+    height:2.5rem
+    line-height:2.5rem
+    text-align:center
+.bottom-bar
+	position: absolute
+	bottom: 0
+	width: 100%
+.block
+    margin-top:0.5rem
+.goPay
+    display:inline-block
+    margin-left:1rem
+    padding:0.6rem 1rem
+    color:#fff
+.obtn
+    display:inline-block
+    margin-left:0.5rem
+    font-size:0.9rem
+    padding:0.2rem 0.8rem
+    color:#33d29f
+    border:1px solid #33d29f
+    border-radius:0.5rem
+.orderDBTN
+    margin-left:0.5rem
+    border:1px solid #33d29f
+    color:#33d29f
+.mint-cell:before
+    height: 1px
+.mint-header.is-fixed
+    z-index: 100000
 </style>

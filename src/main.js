@@ -7,6 +7,7 @@ import app from './App'
 import VueRouter from 'vue-router'
 import { configRouter } from './route-config'
 // import { sync } from 'vuex-router-sync'
+import VueProgressBar from 'vue-progressbar'
 
 //vuex
 import store from './vuex/store'
@@ -35,7 +36,7 @@ import { Indicator } from 'mint-ui'
 
 // vue-resouce
 import VueResource from 'vue-resource'
-
+import * as Service from './service'
 // remove click delay
 import Fastclick from 'fastclick'
 Fastclick.attach(document.body)
@@ -44,7 +45,16 @@ Vue.use(Vuex)
 Vue.use(Mint)
 Vue.use(VueRouter)
 Vue.use(VueResource)
+Vue.use(VueProgressBar, {
+  color: 'rgb(90, 255, 172)',
+  failedColor: 'red',
+  height: '3px'
+})
 
+Vue.http.headers.common['Content-Type'] = "application/x-www-form-urlencoded;charset=utf-8"
+
+Vue.prototype.$$get = Service.get
+Vue.prototype.$$post = Service.post
 Vue.prototype.$go = $go
 Vue.prototype.$back = $back
 Vue.prototype.$MessageBox = MessageBox
@@ -55,7 +65,7 @@ Vue.prototype.$Indicator = Indicator
 function _MyToast(message){
 	Toast({
 		message: message,
-		duration: 1500
+		duration: 1000
 	})
 }
 

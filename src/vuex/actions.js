@@ -5,38 +5,28 @@ export const setCouponList =({dispatch}, data) => {
 export const setChosenCoupon = ({dispatch}, data) => {
 	dispatch('SET_CHOSENCOUPON', data)
 }
+
 //Plantforms actions
 export const setCurrentPlantform = ({dispatch}, data) => {
     dispatch('SET_CURRENT_PLANTFORM', data)
 }
-/*
- * set设置
- * 车辆信息、品牌、车型
- */
-export const setCar_store_info = ({ dispatch }, data) => {
-	dispatch('SET_CAR_STORE_INFO', data)
-}
 
-export const setCar_store_selected_brand = ({ dispatch }, data) => {
-	dispatch('SET_CAR_STORE_SELECTED_BRAND', data)
+export const setPlantformList = ({dispatch}, data) => {
+    dispatch('SET_PLANTFORM_LIST', data)
 }
-
-export const setCar_store_selected_model = ({ dispatch }, data) => {
-	dispatch('SET_CAR_STORE_SELECTED_MODEL', data)
-}
-
 
 /*
  * set设置
  * 登陆用户信息
  */
-export const setUser_store_info = ({ dispatch }, data) => {
-	dispatch('SET_USER_STORE_INFO', data)
+export const openSignInPop = ({ dispatch }) => {
+	dispatch('OPEN_SIGNIN_POP', true)
 }
-export const setUser_su_store_info = ({ dispatch }, data) => {
-    dispatch('SET_USER_SU_STORE_INFO', data)
+
+export const closeSignInPop = ({ dispatch }) => {
+	dispatch('CLOSE_SIGNIN_POP', false)
 }
-/* vip信息*/
-export const setVipuser_store_info = ({ dispatch }, data) => {
-    dispatch('SET_VIPUSER_STORE_INFO', data)
+
+export const setUserInfoBasic = ({ dispatch }, data) => {
+	dispatch('SET_USERINFO_BASIC', data)
 }

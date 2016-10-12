@@ -17,7 +17,10 @@ const currentdate = {
 }
 
 const state = {
-    user_store: null,
+    userinfo: {
+        signinPop: false,
+        basic: '',
+    },
     couponlist: [],
     dirty: {
         newslist: true,
@@ -26,7 +29,8 @@ const state = {
         currentPlantform: {
             name: '爱奇艺',
             bought: true
-        }
+        },
+        plantformList: []
     },
     currentdate: today,
     chosencoupon: ''
@@ -34,20 +38,22 @@ const state = {
 
 const mutations = {
     //用户
-    ['SET_USER_STORE_INFO'] (state, data) {
-        state.user_store = data
+    ['OPEN_SIGNIN_POP'](state, data){
+        state.userinfo.signinPop = data
     },
-    ['SET_USER_SU_STORE_INFO'] (state, data) {
-        state.user_su_store = data
+    ['CLOSE_SIGNIN_POP'](state, data){
+        state.userinfo.signinPop = data
     },
-    //用户vip
-    ['SET_VIPUSER_STORE_INFO'] (state, data) {
-        state.vipuser_store = data
-    },
+    ['SET_USERINFO_BASIC'](state, data){
+        state.userinfo.basic = data
+    },      
     //plantform
     ['SET_CURRENT_PLANTFORM'] (state, data){
         state.plantform.currentPlantform = data
     },
+    ['SET_PLANTFORM_LIST'] (state, data){
+        state.plantform.plantformList = data
+    },    
     //coupons
     ['SET_COUPONLIST'] (state, data){
         state.couponlist = data

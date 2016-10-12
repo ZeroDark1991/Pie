@@ -45,18 +45,19 @@
     "less-loader": "^2.2.3",
     "ora": "^0.2.0",
     "shelljs": "^0.6.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^2.1.2",
     "url-loader": "^0.5.7",
     "vinyl-fs": "^2.4.3",
     "vue-hot-reload-api": "^1.2.0",
     "vue-html-loader": "^1.0.0",
     "vue-loader": "^8.3.0",
+    "vue-progressbar": "^0.3.0",
     "vue-style-loader": "^1.0.0",
     "vuex-router-sync": "^2.0.0",
     "webpack": "^1.12.2",
     "webpack-dev-middleware": "^1.4.0",
     "webpack-hot-middleware": "^2.6.0",
-    "webpack-merge": "^0.8.3",
-    "stylus": "^0.54.5",
-    "stylus-loader": "^2.1.2"
+    "webpack-merge": "^0.8.3"
   }
 }

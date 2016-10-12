@@ -18,7 +18,7 @@
         <div style="margin-top: 2rem;">
             <mt-cell title="优惠券" @click="$go('/couponlist')">
                 <span class="iconfont text-red right-gap" slot='icon'>&#xe613;</span>
-                <span class="text-steelgrey">666张</span>
+                <!-- <span class="text-steelgrey">666张</span> -->
                 <span class="iconfont icon-fenxiang">&#xe608;</span>
             </mt-cell>
             <mt-cell title="订单列表" @click="$go('/orderlist')">
@@ -39,7 +39,6 @@
 <script>
 import Service from '../service'
 import IconCell from '../components/iconcell'
-import { setUser_store_info } from '../vuex/actions'
 import AvatarBox from '../components/AvatarBox'
 
 export default {
@@ -48,7 +47,7 @@ export default {
         user_info: state => state.user_store,
       },
       actions: {
-        setUser_store_info
+        
       }
   },
   data () {
@@ -75,7 +74,7 @@ export default {
   },
   route: {
     data ({next}) {
-      next()
+        next()
     },
     deactivate ({ next }) {
       //Triggers when component destroys

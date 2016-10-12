@@ -7,14 +7,14 @@
                 <span
                     class="site-box text-extra text-white text-center"
                     style= "padding: .4rem 0;line-height: 1"
-                    @click="switchPlantform()">
+                    @click="popupForPlantform = true">
                     {{currentPlantform.name}}
                     <br/>
                     <i class="iconfont">&#xe60f;</i>
                 </span>
 		        <span
 		            class="setting-button"
-                    @click= "$go('/settings')">
+                    @click= "toSettingsPage()">
 		            <i class="iconfont text-white" style="font-size:1.2rem">&#xe60b;</i>
 		        </span>
 	        </div>	
@@ -23,18 +23,18 @@
         		    <i
         		        class="iconfont text-white"
         		        style="font-size: 4rem"
-        		        v-text="currentPlantform.bought?'&#xe617;':'&#xe61a;'"
+        		        v-text="currentPlantform.acount?'&#xe617;':'&#xe61a;'"
         		        >
         		    </i>
                 </div>
             </div>
     	    <div class="flex-center site-box text-white text-large">
-    	        <span v-text="currentPlantform.bought?'已购买':'点击来个账号'"></span>
+    	        <span v-text="currentPlantform.acount?'已购买':'点击来个账号'"></span>
     	    </div>            	    
 	    </div>
         <!-- banner栏结束 -->
         <!-- 订单表单栏开始 -->
-        <div class="form—field" v-show='!currentPlantform.bought'>
+        <div class="form—field" v-show='!currentPlantform.acount'>
             <mt-field
                 label="起始时间"
                 type="datetime"
@@ -63,7 +63,7 @@
             </field-progress>
         </div>
         <!-- 订单表单栏结束 -->
-        <div v-show='currentPlantform.bought'>
+        <div v-show='currentPlantform.account'>
             <!-- 账号信息栏开始 -->
             <div class="accout-area">
                 <mt-field
@@ -82,13 +82,13 @@
                     label="起始时间"
                     type="text"
                     :readonly="true"
-                    value="2016.10.11  12:00">
+                    value="2016.10.11">
                 </mt-field>
                 <mt-field
                     label="结束时间"
                     type="text"
                     :readonly="true"
-                    value="2016.10.15  12:00">
+                    value="2016.10.15">
                 </mt-field>      	
             </div>
             <!-- 账号信息栏结束 -->
@@ -107,48 +107,56 @@
             <!-- 分享栏结束 -->
         </div>    
 	</div>
-	<!-- change plantforms begins -->
+	<!-- switch plantforms begins -->
 	<mt-popup class="mint-popup-1" :visible.sync="popupForPlantform">
         <div
             class= 'pop-opts text-large mint-popup-1-item'
-            v-for= "item in plantforms"
-            @click= 'submitPlantform(item.name)'
+            v-for= "item in plantformList"
+            @click= 'switchPlantform(item.channelId)'
             >
         	{{ item.name }}
         </div>
     </mt-popup>
-	<!-- change plantforms ends -->
+	<!-- switch plantforms ends -->
     <!-- choose date & duration begins -->
     <mt-datetime-picker
-        cancel-text=''
-        confirm-text=''
+        cancel-text = ''
+        confirm-text = ''
         :visible.sync = "popupForDateTime"
         :start-date = "currentdate"
         :end-date = "enddate"
-        type = "datetime"
-        :value.sync = "date">
+        type = "date"
+        :value.sync = "chosendate"
+        year-format="{value} 年"
+        month-format="{value} 月"
+        date-format="{value} 日">
     </mt-datetime-picker>
     <!-- choose date & duration ends -->
 </div>
 </template>
 
 <script>
-import Service from '../service'
 import FieldProgress from '../components/FieldProgress.vue'
 import {
-	setUser_store_info,
-	setCurrentPlantform
+	setCurrentPlantform,
+    openSignInPop,
+    setPlantformList,
+    setUserInfoBasic
 } from '../vuex/actions'
 
 export default {
 	vuex: {
 		getters: {
 			currentdate: state => state.currentdate,
-			currentPlantform: state => state.plantform.currentPlantform
+            plantformList: state => state.plantform.plantformList,
+			currentPlantform: state => state.plantform.currentPlantform,
+            userInfoBasic: state => state.userinfo.basic
 		},
 		actions: {
-			setUser_store_info,
-			setCurrentPlantform
+            setPlantformList,
+			setCurrentPlantform,
+            openSignInPop,
+            setUserInfoBasic
 		}
   	},
   	components:{
@@ -156,7 +164,7 @@ export default {
   	},
 	data () {
 		return {
-			date: new Date(),
+			chosendate: this.currentdate,
 			pickerVisible: true,
 			popupForPlantform: false,
 			popupForDateTime: false,
@@ -169,38 +177,54 @@ export default {
 		}
 	},
 	methods: {
+        updateIndexData(){
+            this.$$get('/app2/zhanghaopai/ChannelSvr/index')
+            .then((data)=>{
+                console.log(data)
+                if(data){
+                    if(data.list){
+                        this.setPlantformList(data.list) //设置平台信息列表
+                        this.setCurrentPlantform(data.list[0]) //设置当前激活平台 默认为第一个
+                    }
+                    if(data.SU) this.setUserInfoBasic(data.SU)
+                }
+            })            
+        },
 		fetchAccount(){
-			if(this.currentPlantform.bought)
-				return
-			else
-                this.$go('/orderdetail', '123123123')	
+			if(this.currentPlantform.account) return
+            this.$go('/orderdetail', '123123123')
 		},
-		switchPlantform(){
-			this.popupForPlantform = true
-		},
-		submitPlantform(chosen){
-			let target = this.plantforms.find(item => item.name == chosen)
+        //切换平台
+		switchPlantform(chosen){
+            // 根据选中的channelID 取出信息列表中对应的平台 设置为当前激活平台
+			let target = this.plantformList.find(item => item.channelId == chosen)
 			this.setCurrentPlantform(target)
 			this.popupForPlantform = false
 		},
 		shareToFriends(){
-			this.$Toast('share to your friends!')
+            this.$Toast('share to your friends!')
 		},
 		shareOnMoments(){
 			this.$Toast('share on your moments!')
-		}
+		},
+        toSettingsPage(){
+            if(!this.userInfoBasic.userId) return this.openSignInPop(true)
+
+            this.$go('/settings')
+        }
 	},
-	created(){},
+	created(){
+        this.updateIndexData()
+    },
 	computed:{
         formatDate(){
         	//format currentDay
-        	let d = this.date
-        	let minutes = d.getMinutes()<10?'0'+d.getMinutes():d.getMinutes()
-        	return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日 ${d.getHours()}:${minutes}`
+        	let d = this.chosendate
+        	return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`
         },
         enddate(){
         	let curDate = new Date(this.currentdate)
-        	let r = new Date((curDate/1000+86400*30)*1000) //一个月日期区间
+        	let r = new Date((curDate/1000+86400*20)*1000) //一个月日期区间
         	return r
         }
 	},
@@ -259,6 +283,6 @@ border-radius()
 .accout-area
 	background-color #fff
 .sharebtn	
-    font-size 1.5rem
+    font-size 1.8rem
     padding 0 1.5rem
 </style>

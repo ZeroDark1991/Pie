@@ -20,14 +20,13 @@ module.exports = {
     env: require('./dev.env'),
     port: 8080,
     proxyTable: {
-      '/app': {
-        target: 'http://dev.sayogi.cn/app',
-        ignorePath: true,
+      '/app2': {
+        target: 'http://114.215.254.202',
+        ignorePath: false,
         secure: false,
         changeOrigin: true,
-        headers: {
-          'userId' : '1'
-        }
+        // prependPath: false
+        // headers:{}
       }        
     }
   }

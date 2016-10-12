@@ -6,7 +6,6 @@
         </mt-button>
     </mt-header>
     <div class="container-top">
-        <h1>文章id：{{ title }}</h1>
         <p v-text="content"></p>
     </div> 
 </div>  
@@ -47,21 +46,17 @@ export default {
     height 2.5rem
     line-height 2.5rem
     text-align center
-
 .bottom-bar
     position  absolute
     bottom  0
     width  100%
-
 .block
     margin-top 0.5rem
-
 .goPay
     display inline-block
     margin-left 1rem
     padding 0.6rem 1rem
     color #fff
-
 .obtn
     display inline-block
     margin-left 0.5rem
@@ -70,16 +65,12 @@ export default {
     color #33d29f
     border 1px solid #33d29f
     border-radius 0.5rem
-
 .orderDBTN
     margin-left 0.5rem
     border 1px solid #33d29f
     color #33d29f
-
 .mint-cell:before
     height 1px
-
 .mint-header.is-fixed
     z-index 100000
-
 </style>
