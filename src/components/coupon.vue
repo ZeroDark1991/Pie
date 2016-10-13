@@ -6,8 +6,8 @@
 			    订单编号：{{ coupon.id }}
 			    <span v-if='coupon.status' class="text-red"> [{{ coupon.status }}]</span>
 			</div> -->
-			<div id="title">派派券内容：{{ coupon.content }}</div>
-			<div id="title">有效时间：{{ coupon.date }}</div>
+			<div id="title">派派券内容：{{ coupon.name }}</div>
+			<div id="title">有效时间至：{{ coupon.endDate }}</div>
 		</div>
 		<div class="coupon_container">
 <!-- 			<div

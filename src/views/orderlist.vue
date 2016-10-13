@@ -4,7 +4,7 @@
             <mt-button @click="$back('/settings')" class="left" slot="left">
                 <span class="iconfont">&#xe609;</span> 
             </mt-button>
-            <mt-button @click="reload()" slot="right">
+            <mt-button @click="updateData()" slot="right">
                 <span class="iconfont">&#xe610;</span> 
             </mt-button>
         </mt-header>
@@ -28,43 +28,61 @@
 	</div>
 </template>
 <script>
-    import order from '../components/order.vue'
+import order from '../components/order.vue'
+import {
+    setOrderList
+} from '../vuex/actions'
 
-	export default {
-		data(){
-			return {
-                orderlist:[
-                    {
-                    	id: 123123123,
-                    	time: '2016-2-2 14:00',
-                    	detail: '爱奇艺账号 9.11-9.13',
-                    	price: 2,
-                    	coupon: '7折',
-                    	status: '已完成'
-                    },
-                    {
-                    	id: 12222222313,
-                    	time: '2016-2-2 14:00',
-                    	detail: '爱奇艺账号 9.11-9.13',
-                    	price: 0.2,
-                    	coupon: null,
-                    	status: '未付款'
-                    }                    
-                ]
-			}
-		},
-		methods:{
-            reload(){
-            	this.$Toast('Page Reloading')
-            }
-		},
-		components:{
-			order
-		},
-		route:{
-			data({next}){
-				next()
-			}
+export default {
+    vuex: {
+        getters: {
+            orderlist: state => state.orderlist
+        },
+        actions: {
+            setOrderList
+        }
+    },
+	data(){
+		return {
+            orderlistmock:[
+                {
+                	id: 123123123,
+                	time: '2016-2-2 14:00',
+                	detail: '爱奇艺账号 9.11-9.13',
+                	price: 2,
+                	coupon: '7折',
+                	status: '已完成'
+                },
+                {
+                	id: 12222222313,
+                	time: '2016-2-2 14:00',
+                	detail: '爱奇艺账号 9.11-9.13',
+                	price: 0.2,
+                	coupon: null,
+                	status: '未付款'
+                }                    
+            ]
+		}
+	},
+	methods:{
+        updateData(){
+            this.$$get('/app2/powerShop/UserOrderSvr/fetch')
+            .then((data) => {
+                console.log(data)
+                data.list
+                ? this.setOrderList(data.list)
+                : this.setOrderList([])
+            })
+        }
+	},
+	components:{
+		order
+	},
+	route:{
+		data({next}){
+            this.updateData()
+			next()
 		}
 	}
+}
 </script>

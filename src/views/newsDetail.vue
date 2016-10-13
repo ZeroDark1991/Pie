@@ -6,7 +6,15 @@
         </mt-button>
     </mt-header>
     <div class="container-top">
-        <p v-text="content"></p>
+        <h1
+            style= "font-weight: bold; padding:1rem 1rem 0 1rem"
+            class= "text-extra">
+            {{newsInfoHolder.subject}}
+        </h1>
+        <p
+            v-text= "newsInfoHolder.content"
+            style= "padding: .5rem 1rem">
+        </p>
     </div> 
 </div>  
 </template>
@@ -16,23 +24,38 @@ import Service from '../service'
 export default {
     data () {
         return {
-                title: '',
-                content: '',
+                newsInfo: null
             }
     },
     methods:{
+        updateData(id){
+            this.$$get('/app2/console/UserAffairSvr/info',{
+                params: {
+                    id: id
+                }
+            })
+            .then((data)=>{
+                if(data.obj) this.newsInfo = data.obj
+            })
+        }
     },
     created(){
     },
+    computed:{
+        newsInfoHolder(){
+            return this.newsInfo
+            ? this.newsInfo
+            : { subject: '', content: '' }
+        }
+    },
     route: {
         data ({from, to, next}){
-            this.title = to.params.newsId
-            this.content = '文字内容'
+            let newsId = to.params.newsId
+            this.updateData(newsId)
             next()
         },
         deactivate ({ next }) {
-            this.title = ''
-            this.content = ''
+            this.newsInfo = null
             next()
         }
     } 

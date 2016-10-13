@@ -38,15 +38,15 @@
   }
   .faded-transition {
     width: 1.7rem;
-    margin: 2px auto;
+    margin: 5px auto;
     box-sizing: border-box;
     height: 0rem;
   }
   .faded-enter {
-    animation: faded-in .7s;
+    animation: faded-in .3s;
   }
   .faded-leave {
-    animation: faded-out .7s;
+    animation: faded-out .3s;
   }
   @keyframes faded-in {
     0% {

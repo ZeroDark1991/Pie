@@ -21,10 +21,12 @@ module.exports = {
     port: 8080,
     proxyTable: {
       '/app2': {
-        target: 'http://114.215.254.202',
+        target: 'http://zhp.sayogi.cn',
         ignorePath: false,
+        // true时删除代理时请求中的path
         secure: false,
         changeOrigin: true,
+        // 修改掉前端页面host 防止出现跨域现象
         // prependPath: false
         // headers:{}
       }        

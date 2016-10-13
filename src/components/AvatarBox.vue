@@ -1,8 +1,10 @@
 <template>
 <div>
 	<div class="box">
-		<div v-if='imgUrl' class="avatar_container">
-			<img :src="imgUrl" class="avatar_img bk-grey">
+		<div class="avatar_container">
+			<img
+			    :src="imgUrl ? imgUrl : 'http://img5.2345.com/duoteimg/zixunImg/local/2013/02/27/13619289854109.jpg'"
+			    class="avatar_img bk-grey">
 		</div>
 		<div class="flex-item text-left">
 			<div id="title">{{title}}</div>

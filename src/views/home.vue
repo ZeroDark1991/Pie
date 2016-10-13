@@ -23,18 +23,18 @@
         		    <i
         		        class="iconfont text-white"
         		        style="font-size: 4rem"
-        		        v-text="currentPlantform.acount?'&#xe617;':'&#xe61a;'"
+        		        v-text="currentPlantform.account?'&#xe617;':'&#xe61a;'"
         		        >
         		    </i>
                 </div>
             </div>
     	    <div class="flex-center site-box text-white text-large">
-    	        <span v-text="currentPlantform.acount?'已购买':'点击来个账号'"></span>
+    	        <span v-text="currentPlantform.account?'已购买':'点击来个账号'"></span>
     	    </div>            	    
 	    </div>
         <!-- banner栏结束 -->
         <!-- 订单表单栏开始 -->
-        <div class="form—field" v-show='!currentPlantform.acount'>
+        <div class="form—field" v-show='!currentPlantform.account'>
             <mt-field
                 label="起始时间"
                 type="datetime"
@@ -69,26 +69,26 @@
                 <mt-field
                     label="账号"
                     type="text"
-                    :value="'accountpie@163.com'"
+                    :value="currentAccount.accountId"
                     :readonly="true">
                 </mt-field>
                 <mt-field
                     label="密码"
                     type="text"
                     :readonly="true"
-                    value="123456778">
+                    :value="currentAccount.loginPwd">
                 </mt-field>
                 <mt-field
                     label="起始时间"
                     type="text"
                     :readonly="true"
-                    value="2016.10.11">
+                    :value="currentAccount.startDate">
                 </mt-field>
                 <mt-field
                     label="结束时间"
                     type="text"
                     :readonly="true"
-                    value="2016.10.15">
+                    :value="currentAccount.endDate">
                 </mt-field>      	
             </div>
             <!-- 账号信息栏结束 -->
@@ -168,11 +168,6 @@ export default {
 			pickerVisible: true,
 			popupForPlantform: false,
 			popupForDateTime: false,
-            plantforms:[
-                { name: '爱奇艺', bought: true},
-                { name: '优酷', bought: false},
-                { name: '乐视', bought: false},
-            ],
             productAmounts: 1,
 		}
 	},
@@ -226,6 +221,19 @@ export default {
         	let curDate = new Date(this.currentdate)
         	let r = new Date((curDate/1000+86400*20)*1000) //一个月日期区间
         	return r
+        },
+        currentAccount(){
+            if(this.currentPlantform.account){
+                return this.currentPlantform.account
+            }
+            else {
+                return {
+                    accountId: null,
+                    loginPwd: null,
+                    startDate: null,
+                    endDate: null
+                }
+            }
         }
 	},
 	route: {

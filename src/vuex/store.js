@@ -22,6 +22,8 @@ const state = {
         basic: '',
     },
     couponlist: [],
+    newslist: [],
+    orderlist: [],
     dirty: {
         newslist: true,
     },
@@ -53,13 +55,21 @@ const mutations = {
     },
     ['SET_PLANTFORM_LIST'] (state, data){
         state.plantform.plantformList = data
-    },    
+    },
+    //orders
+    ['SET_ORDER_LIST'] (state, data){
+        state.orderlist = data
+    },
     //coupons
-    ['SET_COUPONLIST'] (state, data){
+    ['SET_COUPON_LIST'] (state, data){
         state.couponlist = data
     },
     ['SET_CHOSENCOUPON'] (state, data){
         state.chosencoupon = data
+    },
+    //news
+    ['SET_NEWS_LIST'] (state, data){
+        state.newslist = data
     }
 }
 

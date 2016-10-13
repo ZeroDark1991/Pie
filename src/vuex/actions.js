@@ -1,6 +1,16 @@
+//Order actions
+export const setOrderList = ({dispatch}, data) => {
+	dispatch('SET_ORDER_LIST', data)
+}
+
+//News actions
+export const setNewsList = ({dispatch}, data) => {
+	dispatch('SET_NEWS_LIST', data)
+}
+
 //Coupons actions
 export const setCouponList =({dispatch}, data) => {
-	dispatch('SET_COUPONLIST', data)
+	dispatch('SET_COUPON_LIST', data)
 }
 export const setChosenCoupon = ({dispatch}, data) => {
 	dispatch('SET_CHOSENCOUPON', data)
