@@ -1,6 +1,6 @@
 <template>
 <div>
-	<div class="box text-small">
+	<div class="box text-small" :class="{ 'invalid': invalid }">
 		<div class="flex-item text-left">
 <!-- 			<div id="title">
 			    订单编号：{{ coupon.id }}
@@ -16,27 +16,30 @@
 				<span class="text-extra">{{ coupon.price }}</span>
 				<span class="text-large">元</span>
 			</div> -->
-			<div
-			    class= "text-right"
-			    >
+			<div v-if="!invalid" class= "text-right">
 				<img :src="imgUrl" width="40px">
+			</div>
+			<div v-else class= "text-right text-red" >
+				{{coupon._useStatus}}
 			</div>
 		</div>		
 	</div>
 </div> 	
 </template>
 <script>
-import qiyi from '../assets/qiyi.png'
+import qiyi from 'assets/qiyi.png'
 export default {
 	data(){
 		return {
 			imgUrl: qiyi
 		}
 	},
-	props:['coupon']
+	props:['coupon','invalid']
 }
 </script>
 <style scoped lang="stylus">
+.invalid
+    background-color #f1f1f1
 .price
     border-radius 5px
 .coupon_container

@@ -1,20 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
-
-/* @params
- * car_store: 存储车辆管理 => 增加车辆里需要的信息
- * 
- * 
- */
  
 const today = new Date()
-const currentdate = {
-    year: today.getFullYear(),
-    month: today.getMonth() + 1,
-    day: today.getDate(),
-    hour: today.getHours()
-}
 
 const state = {
     userinfo: {
@@ -34,6 +22,12 @@ const state = {
         },
         plantformList: []
     },
+    currentorder: {
+        startDate: '',
+        dayNum: '',
+        channelId: '',
+    },
+    activedcoupons: [],
     currentdate: today,
     chosencoupon: ''
 }
@@ -48,7 +42,7 @@ const mutations = {
     },
     ['SET_USERINFO_BASIC'](state, data){
         state.userinfo.basic = data
-    },      
+    },
     //plantform
     ['SET_CURRENT_PLANTFORM'] (state, data){
         state.plantform.currentPlantform = data
@@ -60,6 +54,9 @@ const mutations = {
     ['SET_ORDER_LIST'] (state, data){
         state.orderlist = data
     },
+    ['SET_CURRENT_ORDER'] (state, data){
+        state.currentorder = data
+    },
     //coupons
     ['SET_COUPON_LIST'] (state, data){
         state.couponlist = data
@@ -67,6 +64,9 @@ const mutations = {
     ['SET_CHOSENCOUPON'] (state, data){
         state.chosencoupon = data
     },
+    ['SET_ACTIVED_COUPONS'] (state, data){
+        state.activedcoupons = data
+    },    
     //news
     ['SET_NEWS_LIST'] (state, data){
         state.newslist = data

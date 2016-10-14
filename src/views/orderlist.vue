@@ -12,14 +12,11 @@
 
 		    <div v-if='orderlist.length == 0' class="text-center" style="margin-top: 1rem">
                 <span>暂无订单信息</span>
-		    </div>
-		    	
+		    </div>	
 		    <div v-else>
 			    <div v-for='order in orderlist'>
-		            <order
-                        :order= "order"
-                        @click="$go('orderdetail', order.id)"
-                        >
+		            <order :order= "order"
+                        @click="$go('orderdetail', order.orderId)">
                     </order>
 			    </div>
 		    </div>
@@ -28,7 +25,7 @@
 	</div>
 </template>
 <script>
-import order from '../components/order.vue'
+import order from 'components/order.vue'
 import {
     setOrderList
 } from '../vuex/actions'

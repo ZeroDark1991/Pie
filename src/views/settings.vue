@@ -29,7 +29,6 @@
                 <span class="iconfont icon-fenxiang">&#xe608;</span>
             </mt-cell>               
         </div>
-
         <div
             v-if="!basicInfo.loginName"
             class="flex-center"
@@ -46,8 +45,8 @@
 
 <script>
 import Service from '../service'
-import IconCell from '../components/iconcell'
-import AvatarBox from '../components/AvatarBox'
+import IconCell from 'components/iconcell'
+import AvatarBox from 'components/AvatarBox'
 import {
     openSignInPop,
     setUserInfoBasic

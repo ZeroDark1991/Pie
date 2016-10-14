@@ -9,7 +9,6 @@
             </mt-button>
         </mt-header>
 		<div class="container-top">
-
 		    <div v-if='newslist.length == 0 && dataupdated' class="text-center" style="margin-top: 1rem">
                 <span>暂无新消息</span>
 		    </div>
@@ -29,7 +28,7 @@
 	</div>
 </template>
 <script>
-import news from '../components/news.vue'
+import news from 'components/news.vue'
 import {
     setNewsList
 } from '../vuex/actions'

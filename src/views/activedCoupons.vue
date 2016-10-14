@@ -10,13 +10,13 @@
 <!--         <div v-if="$loadingRouteData" class="loading">
             <mt-spinner type="triple-bounce" color="#f56f1c" :size="20"></mt-spinner>
         </div> -->
-        <template  v-if='activeCouponlist.length == 0'>
+        <template  v-if='activedcoupons.length == 0'>
             <div class="text-center" style="margin-top: 1rem">
                 <span>暂无可用优惠券</span>
             </div>            
         </template>
         <template v-else>
-            <div v-for='coupon in activeCouponlist'>
+            <div v-for='coupon in activedcoupons'>
                 <coupon
                     :coupon= "coupon"
                     @click= "chooseCoupon(coupon.id)"
@@ -29,15 +29,17 @@
 </template>
 
 <script>
-import Coupon from '../components/coupon.vue'
-import { setCouponList, setChosenCoupon } from '../vuex/actions'
+import Coupon from 'components/coupon.vue'
+import {
+    setChosenCoupon
+} from '../vuex/actions'
 export default {
     vuex:{
         getters: {
             couponlist: state => state.couponlist,
+            activedcoupons: state => state.activedcoupons
         },
         actions: {
-            setCouponList,
             setChosenCoupon
         }
     },
@@ -58,26 +60,11 @@ export default {
     methods:{
     	chooseCoupon(id){
     		this.setChosenCoupon(id)
-    		this.$back('/orderdetail','123123')
+    		this.$back('/confirmorder')
     	}
     },
     created(){
-    	if(this.couponlist.length == 0)
-    		//取得所有的优惠券 存入store
-    	    this.setCouponList([
-                {
-                    id: '001',
-                    type: '',
-                    content: '爱奇艺2元抵用券',
-                    date: '2016.9.1-2016.12.1'
-                },
-                {
-                    id: '002',
-                    type: '',
-                    content: '爱奇艺0.2元抵用券',
-                    date: '2016.9.1-2016.12.1'
-                }                
-            ])    	
+        if(this.activedcoupons.length ==0) this.$go('/home')  	
     },
     route: {
         data ({ to,next }) {

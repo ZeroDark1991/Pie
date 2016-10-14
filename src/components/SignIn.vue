@@ -27,8 +27,8 @@
         	<mt-button
         	    type='danger' 
         	    size='large'
-        	    plain
-        	    @click='signin()'>
+        	    @click='signin()'
+        	    plain>
         	    登录
     	    </mt-button>
         </div>      

@@ -15,7 +15,7 @@
 
 <script>
 import store from './vuex/store'
-import SignIn from './components/SignIn'
+import SignIn from 'components/SignIn'
 
 export default {
   store: store,

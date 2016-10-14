@@ -33,7 +33,7 @@
 </template>
 <script>
 import Service from '../service'
-import SwRadio from '../components/radio'
+import SwRadio from 'components/radio'
 import { setVipuser_store_info} from '../vuex/actions'
 export default {
     vuex: {

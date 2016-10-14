@@ -8,8 +8,8 @@ export function configRouter (router) {
     '/couponlist': {
       component: require('./views/couponlist.vue')
     },
-    '/activecoupons': {
-      component: require('./views/activeCoupons.vue')
+    '/activedcoupons': {
+      component: require('./views/activedCoupons.vue')
     },    
     '/settings': {
       component: function(resolve) {
@@ -26,6 +26,11 @@ export function configRouter (router) {
         require(['./views/orderDetail.vue'],resolve)
       }
     },
+    '/confirmorder':{
+      component: function(resolve){
+        require(['./views/confirmOrder.vue'],resolve)
+      }
+    },    
     '/orderlist': {
       component: function(resolve){
         require(['./views/orderlist.vue'], resolve)

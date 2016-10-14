@@ -2,6 +2,9 @@
 export const setOrderList = ({dispatch}, data) => {
 	dispatch('SET_ORDER_LIST', data)
 }
+export const setCurrentOrder = ({dispatch}, data) => {
+	dispatch('SET_CURRENT_ORDER', data)
+}
 
 //News actions
 export const setNewsList = ({dispatch}, data) => {
@@ -14,6 +17,9 @@ export const setCouponList =({dispatch}, data) => {
 }
 export const setChosenCoupon = ({dispatch}, data) => {
 	dispatch('SET_CHOSENCOUPON', data)
+}
+export const setActivedCoupons = ({dispatch}, data) => {
+	dispatch('SET_ACTIVED_COUPONS', data)
 }
 
 //Plantforms actions

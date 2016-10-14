@@ -19,7 +19,7 @@
 		        </span>
 	        </div>	
             <div class="tap-box-container flex-center site-box">
-                <div class="tap-box text-center" style="padding: .8rem 0;vertical-align: middle " @click='fetchAccount()'>
+                <div class="tap-box text-center" style="padding: .8rem 0;vertical-align: middle " @click='sumbitOrder()'>
         		    <i
         		        class="iconfont text-white"
         		        style="font-size: 4rem"
@@ -45,7 +45,7 @@
             <field-progress :title="'购买天数'">
             	<mt-range
             	    slot='value'
-                    :value.sync="productAmounts"
+                    :value.sync="currentOrder.dayNum"
                     :min="1"
                     :max="7"
                     :step="1"
@@ -58,7 +58,7 @@
                     slot='label'
                     style='margin-top: 8px'
                     >
-                    {{productAmounts}} 天
+                    {{currentOrder.dayNum}} 天
                 </span>
             </field-progress>
         </div>
@@ -126,7 +126,7 @@
         :start-date = "currentdate"
         :end-date = "enddate"
         type = "date"
-        :value.sync = "chosendate"
+        :value.sync = "currentOrder.startDate"
         year-format="{value} 年"
         month-format="{value} 月"
         date-format="{value} 日">
@@ -136,12 +136,13 @@
 </template>
 
 <script>
-import FieldProgress from '../components/FieldProgress.vue'
+import FieldProgress from 'components/FieldProgress.vue'
 import {
 	setCurrentPlantform,
     openSignInPop,
     setPlantformList,
-    setUserInfoBasic
+    setUserInfoBasic,
+    setCurrentOrder
 } from '../vuex/actions'
 
 export default {
@@ -156,7 +157,8 @@ export default {
             setPlantformList,
 			setCurrentPlantform,
             openSignInPop,
-            setUserInfoBasic
+            setUserInfoBasic,
+            setCurrentOrder
 		}
   	},
   	components:{
@@ -164,11 +166,15 @@ export default {
   	},
 	data () {
 		return {
-			chosendate: this.currentdate,
 			pickerVisible: true,
 			popupForPlantform: false,
 			popupForDateTime: false,
-            productAmounts: 1,
+            // 天数与起始日期双向绑定，所以currentOrder不放在store里
+            currentOrder: {
+                startDate: this.currentdate,
+                dayNum: 1,
+                channelId: '',
+            }
 		}
 	},
 	methods: {
@@ -180,20 +186,23 @@ export default {
                     if(data.list){
                         this.setPlantformList(data.list) //设置平台信息列表
                         this.setCurrentPlantform(data.list[0]) //设置当前激活平台 默认为第一个
+                        this.currentOrder.channelId = data.list[0].channelId
                     }
                     if(data.SU) this.setUserInfoBasic(data.SU)
                 }
             })            
         },
-		fetchAccount(){
+		sumbitOrder(){
 			if(this.currentPlantform.account) return
-            this.$go('/orderdetail', '123123123')
+            this.setCurrentOrder(this.currentOrder)
+            this.$go('/confirmorder')
 		},
         //切换平台
 		switchPlantform(chosen){
             // 根据选中的channelID 取出信息列表中对应的平台 设置为当前激活平台
 			let target = this.plantformList.find(item => item.channelId == chosen)
 			this.setCurrentPlantform(target)
+            this.currentOrder.channelId = chosen
 			this.popupForPlantform = false
 		},
 		shareToFriends(){
@@ -214,7 +223,7 @@ export default {
 	computed:{
         formatDate(){
         	//format currentDay
-        	let d = this.chosendate
+        	let d = this.currentOrder.startDate
         	return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`
         },
         enddate(){

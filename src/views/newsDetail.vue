@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import Service from '../service'
 export default {
     data () {
         return {
