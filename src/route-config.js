@@ -45,8 +45,12 @@ export function configRouter (router) {
       component: function(resolve){
         require(['./views/newsDetail.vue'], resolve)
       }
-    }
-
+    },
+    '/userinfo': {
+      component: function(resolve){
+        require(['./views/userEditor.vue'], resolve)
+      }
+    }    
     // // not found handler
     // '*': {
     //   component: require('./components/not-found.vue')

@@ -51,6 +51,11 @@
 	z-index:3000;
 }
 
+.mint-button--primary.is-plain{
+	color: #1AAD19;
+	border: 1px solid #1AAD19;
+}
+
 .mint-indicator-mask, .mint-indicator-wrapper{
 	position: absolute;
 	z-index: 6666;

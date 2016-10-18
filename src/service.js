@@ -1,3 +1,4 @@
+
 export const get = function(uri, options){
     // 全局progressing bar
     this.$Progress.start()
@@ -45,7 +46,12 @@ function successHandler({ data }){
 
     if(result == "faild"){
         this.$Toast(res.message)
-        if(errorCode<=20) this.$Toast('请先登录')
+        if(errorCode <= 20){
+            this.$Toast('请先登录')
+            if(this.openSignInPop){
+                this.openSignInPop()
+            }
+        }
         return false
     }
     return res

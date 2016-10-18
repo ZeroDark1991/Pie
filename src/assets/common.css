@@ -120,6 +120,9 @@ input{
 .text-grey{
 	color:#777 !important
 }
+.text-deepgrey{
+	color:#333 !important
+}
 .text-lightgrey{
 	color:#d7d7d7 !important
 }
@@ -134,6 +137,9 @@ input{
 }
 .text-green{
 	color: #1AAD19 !important
+}
+.text-steelblue{
+	color: #3c7bbb!important
 }
 .text-steelgrey{
 	color: #99a7b5!important
@@ -172,6 +178,9 @@ input{
 }
 .text-large{
 	font-size: .8rem !important
+}
+.text-normal{
+	font-size: .7rem !important
 }
 .text-small{
 	font-size: .65rem !important

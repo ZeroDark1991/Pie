@@ -1,6 +1,6 @@
 <template>
 <div class="page">
-    <mt-header fixed title="我的优惠券">
+    <mt-header fixed title="可用优惠券">
       	<mt-button @click="$back('/orderdetail','123123')" class="left" slot="left">
             <span class="iconfont">&#xe609;</span>  
         </mt-button>
@@ -19,7 +19,7 @@
             <div v-for='coupon in activedcoupons'>
                 <coupon
                     :coupon= "coupon"
-                    @click= "chooseCoupon(coupon.id)"
+                    @click= "chooseCoupon(coupon.ucId)"
                     >
                 </order>
             </div>
@@ -60,6 +60,7 @@ export default {
     methods:{
     	chooseCoupon(id){
     		this.setChosenCoupon(id)
+            // this.$$get()
     		this.$back('/confirmorder')
     	}
     },

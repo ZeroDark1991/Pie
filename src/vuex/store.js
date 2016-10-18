@@ -3,10 +3,11 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
  
 const today = new Date()
+const tdArr = [today.getFullYear(), today.getMonth()+1, today.getDate()]
 
 const state = {
     userinfo: {
-        signinPop: false,
+        signinPop: true,
         basic: '',
     },
     couponlist: [],
@@ -29,6 +30,7 @@ const state = {
     },
     activedcoupons: [],
     currentdate: today,
+    today: today,
     chosencoupon: ''
 }
 

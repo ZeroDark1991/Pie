@@ -14,12 +14,9 @@
 </div> 	
 </template>
 <script>
-	export default {
-		data(){
-			return {}
-		},
-		props:['title', 'imgUrl', 'content']
-	}
+export default {
+	props: ['title', 'imgUrl', 'content']
+}
 </script>
 <style scoped>
 	.news_container{

@@ -14,12 +14,15 @@
                 </span>
 		        <span
 		            class="setting-button"
-                    @click= "toSettingsPage()">
+                    @click= "toPageRequiresSignin('/settings')">
 		            <i class="iconfont text-white" style="font-size:1.2rem">&#xe60b;</i>
 		        </span>
 	        </div>	
             <div class="tap-box-container flex-center site-box">
-                <div class="tap-box text-center" style="padding: .8rem 0;vertical-align: middle " @click='sumbitOrder()'>
+                <div
+                    class="tap-box text-center"
+                    style="padding: .8rem 0;vertical-align: middle "
+                    @click='sumbitOrder()'>
         		    <i
         		        class="iconfont text-white"
         		        style="font-size: 4rem"
@@ -35,13 +38,14 @@
         <!-- banner栏结束 -->
         <!-- 订单表单栏开始 -->
         <div class="form—field" v-show='!currentPlantform.account'>
-            <mt-field
+ <!--            <mt-field
                 label="起始时间"
                 type="datetime"
                 :value="formatDate"
                 :readonly="true"
-                @click="popupForDateTime= popupForDateTime?false:true">
+                >
             </mt-field>
+
             <field-progress :title="'购买天数'">
             	<mt-range
             	    slot='value'
@@ -60,7 +64,47 @@
                     >
                     {{currentOrder.dayNum}} 天
                 </span>
-            </field-progress>
+            </field-progress> -->
+            <field-progress :title="'起始时间'">
+                <div class="flex-center" slot="value">
+                    <div class="change-day-btn iconfont text-normal">
+                        <span
+                            class= "bk-grey change-day-icon text-deepgrey"
+                            @click= 'updateStartDay(0)'>
+                            &#xe60e;
+                        </span>
+                    </div>
+                    <div class="flex-center" style="min-width: 100px"> {{formatDate}}</div>
+                    <div class="change-day-btn iconfont text-normal">
+                        <span
+                            class= "bk-grey change-day-icon text-deepgrey"
+                            @click= 'updateStartDay(1)'>
+                            &#xe60d;
+                        </span>
+                    </div>
+                </div>
+            </field-progress>             
+            <field-progress :title="'购买天数'">
+                <div class="flex-center" slot="value">
+                    <div class="change-day-btn iconfont text-normal">
+                        <span
+                            class= "bk-grey change-day-icon text-deepgrey"
+                            @click= 'updateDayNum(0)'>
+                            &#xe60e;
+                        </span>
+                    </div>
+                    <div class="flex-center text-steelblue" style="min-width: 100px">
+                        {{currentOrder.dayNum}} 天
+                    </div>
+                    <div class="change-day-btn iconfont text-normal">
+                        <span
+                            class= "bk-grey change-day-icon text-deepgrey"
+                            @click= 'updateDayNum(1)'>
+                            &#xe60d;
+                        </span>
+                    </div>
+                </div>
+            </field-progress>            
         </div>
         <!-- 订单表单栏结束 -->
         <div v-show='currentPlantform.account'>
@@ -119,9 +163,7 @@
     </mt-popup>
 	<!-- switch plantforms ends -->
     <!-- choose date & duration begins -->
-    <mt-datetime-picker
-        cancel-text = ''
-        confirm-text = ''
+<!--     <mt-datetime-picker
         :visible.sync = "popupForDateTime"
         :start-date = "currentdate"
         :end-date = "enddate"
@@ -130,7 +172,7 @@
         year-format="{value} 年"
         month-format="{value} 月"
         date-format="{value} 日">
-    </mt-datetime-picker>
+    </mt-datetime-picker> -->
     <!-- choose date & duration ends -->
 </div>
 </template>
@@ -144,6 +186,7 @@ import {
     setUserInfoBasic,
     setCurrentOrder
 } from '../vuex/actions'
+import { caculateDate } from 'src/util'
 
 export default {
 	vuex: {
@@ -173,7 +216,6 @@ export default {
             currentOrder: {
                 startDate: this.currentdate,
                 dayNum: 1,
-                channelId: '',
             }
 		}
 	},
@@ -192,17 +234,53 @@ export default {
                 }
             })            
         },
+        // 选择天数
+        updateDayNum(type){
+            switch(type){
+                case 0:
+                    if(this.currentOrder.dayNum > 1)
+                        this.currentOrder.dayNum--
+                    break
+                case 1:
+                    if(this.currentOrder.dayNum < 7)
+                        this.currentOrder.dayNum++
+                    else
+                        this.$Toast('最大购买天数为7天')
+                    break
+            }
+        },
+        // 选择开始日期
+        updateStartDay(type){
+            let cur = this.currentOrder.startDate
+            let today = this.currentdate
+            switch(type){
+                case 0:
+                    let resM = caculateDate.minus(cur, 1, today)
+                    if(resM)
+                        this.currentOrder.startDate = resM
+                    else
+                        this.$Toast('超过选择范围')
+                    break
+                case 1:
+                    let resP = caculateDate.plus(cur, 1, today)
+                    if(resP)
+                        this.currentOrder.startDate = resP
+                    else
+                        this.$Toast('超过选择范围')
+                    break
+            }
+        },
 		sumbitOrder(){
 			if(this.currentPlantform.account) return
-            this.setCurrentOrder(this.currentOrder)
-            this.$go('/confirmorder')
+            let c = this.currentOrder
+            this.setCurrentOrder(Object.assign({},c))
+            this.toPageRequiresSignin('/confirmorder')
 		},
         //切换平台
 		switchPlantform(chosen){
             // 根据选中的channelID 取出信息列表中对应的平台 设置为当前激活平台
 			let target = this.plantformList.find(item => item.channelId == chosen)
 			this.setCurrentPlantform(target)
-            this.currentOrder.channelId = chosen
 			this.popupForPlantform = false
 		},
 		shareToFriends(){
@@ -211,10 +289,12 @@ export default {
 		shareOnMoments(){
 			this.$Toast('share on your moments!')
 		},
-        toSettingsPage(){
-            if(!this.userInfoBasic.userId) return this.openSignInPop(true)
-
-            this.$go('/settings')
+        toPageRequiresSignin(page){
+            if(!this.userInfoBasic.userId){
+                this.openSignInPop(true)
+                return
+            }
+            this.$go(page)
         }
 	},
 	created(){
@@ -223,8 +303,9 @@ export default {
 	computed:{
         formatDate(){
         	//format currentDay
-        	let d = this.currentOrder.startDate
-        	return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`
+            let origin = this.currentOrder.startDate
+        	let d = [origin.getFullYear(), origin.getMonth()+1, origin.getDate()]
+        	return d.join('-')
         },
         enddate(){
         	let curDate = new Date(this.currentdate)
@@ -247,7 +328,10 @@ export default {
 	},
 	route: {
 		data ({ to, next }) {
-			//Hook-function which triggers before rendered
+            console.log(to)
+			if(to.query.paysuccess == 1){
+                this.updateIndexData()
+            }
             next()
 		},
 	    deactivate ({ next }) {
@@ -279,8 +363,8 @@ border-radius()
 	top 68px
 	transform translate3d(-50%,0,0)
 .tap-box-container
-	padding: 1rem 0    
-.tap-box 
+	padding: 1rem 0
+.tap-box
 	width 160px
 	height 160px
 	border-radius(50%)
@@ -299,7 +383,13 @@ border-radius()
 	top .8rem
 .accout-area
 	background-color #fff
-.sharebtn	
+.sharebtn
     font-size 1.8rem
     padding 0 1.5rem
+.change-day-btn
+    padding 0 1rem
+    &:first-child
+        padding-left 0
+.change-day-icon
+    padding .5rem
 </style>

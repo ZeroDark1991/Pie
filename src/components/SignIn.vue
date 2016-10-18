@@ -4,7 +4,54 @@
             <i class="iconfont close-btn text-grey">&#xe61c;</i>
         </div>
         <div class="top-gap">
-            <mt-field
+            <div class="flex-center bk-white" style="margin:0 5%">
+            	<div
+            	    class="flex-left"
+            	    style="width: 100%;
+            	        padding: .5rem .1rem;
+            	        border: 1px solid #ddd;
+            	        border-radius: 5px 5px 0 0">
+            		<div class="unit-1-4 sitebox sign-box-item">手机号</div>
+            		<div class="unit-3-4 sitebox sign-box-item">
+            		    <input
+            		        type="text"
+            		        style="width: 100%"
+            		        placeholder="输入手机号"
+            		        v-model='account'>
+            		</div>
+            	</div>
+            </div>
+            <div class="flex-center  bk-white" style="margin:0 5%">
+            	<div
+            	    class="flex-left"
+            	    style="width: 100%;
+            	        padding: .5rem .1rem;
+            	        border:1px solid #ddd;
+            	        border-top: none;
+            	        border-radius: 0 0 5px 5px">
+            		<div class="unit-1-4 sitebox sign-box-item">验证码</div>
+            		<div class="unit-3-4 sitebox sign-box-item">
+            		    <div style="width: 100%" class='flex-left'>
+            		        <div>
+            		            <input
+            		                type="text"
+            		                style="width:5rem"
+            		                placeholder="输入验证码"
+            		                v-model="verifyCode">
+            		        </div>
+            		        <div class="unit-1-2 sitebox text-right">
+                                <span 
+                                    class="text-green"
+                                    @click='fetchVerifyCode()'>
+                                    {{ btnText }}
+                                </span>
+                            </div>          			    
+            		    </div>
+           		    
+            		</div>
+            	</div>
+            </div>
+<!--             <mt-field
                 label="手机号"
                 type="text"
                 placeholder="输入手机号"
@@ -18,14 +65,15 @@
                 <mt-button
                     size='small'
                     style='margin: 10px 0'
+                    :disabled = 'btnDisable'
                     @click='fetchVerifyCode()'>
-                    获取验证码
+                    {{ btnText }}
                 </mt-button>
-            </mt-field>
+            </mt-field> -->
         </div>            
-        <div class="flex-center top-gap" style="margin-left: 1.2rem;margin-right: 1.2rem;">
+        <div class="flex-center" style="margin:3rem 1.2rem 0 1.2rem">
         	<mt-button
-        	    type='danger' 
+        	    type='primary' 
         	    size='large'
         	    @click='signin()'
         	    plain>
@@ -35,6 +83,7 @@
 	</div>
 </template>
 <script>
+import FieldProgress from 'components/FieldProgress.vue'
 import {
     closeSignInPop,
     setUserInfoBasic,
@@ -54,20 +103,41 @@ export default {
 		return {
 			account:'',
 			verifyCode: '',
-			msgNum: ''
+			msgNum: '',
+			btnText: '获取验证码',
+			btnDisable: false,
 		}
+	},
+	components:{
+		FieldProgress
 	},
 	methods: {
 		fetchVerifyCode(){
 			if(!this.account) return this.$Toast('先输入手机号')
-			
+			if(!(/^1[34578]\d{9}$/.test(this.account))) return this.$Toast('手机号格式有误')
 			let formData = { mobile: this.account }
+		    this.btnDisable = true
+            let c = 60
+		    let timer = setInterval(()=>{
+                this.btnText = `${--c}s重新获取`
+                if(c==0){
+                	clearInterval(timer)
+                	this.btnDisable = false
+                	this.btnText = '获取验证码'
+                }
+		    },1000)
+
 			this.$$post('/app2/console/ShortMsgSvr/loginCheck',formData)
 			.then((data)=>{
 				if(data){
 					console.log(data)
 					this.$Toast('发送成功')
 					this.msgNum = data.obj.msgNum
+				}
+				else{
+					clearInterval(timer)
+					this.btnDisable = false
+					this.btnText = '获取验证码'
 				}
 			})
 		},
@@ -88,7 +158,7 @@ export default {
 		    		this.$Toast('登录成功')
 		    		this.closeSignInPop()
                     this.$$get('/app2/zhanghaopai/ChannelSvr/index')
-                    .then((data)=>{
+                    .then((data) => {
                         console.log(data)
                         if(data){
                             if(data.list){
@@ -98,7 +168,6 @@ export default {
                         }
                     })
 		    	}
-
                 if(data.SU) this.setUserInfoBasic(data.SU)
 		    })
 		}
@@ -109,6 +178,18 @@ export default {
 .sign-in-container
 	width 100%
 	height 100%
+	background-color rgba(180,180,180,0)
 .close-btn
-	padding: .6rem
+	padding .6rem
+.sign-box-container
+    border 1px solid #eee
+.sign-box{
+	width:100%;
+	border:1px solid #eee;
+}
+.sign-box-item{
+    height: 2rem
+    line-height 1.6rem
+    padding: .2rem .5rem
+}
 </style>

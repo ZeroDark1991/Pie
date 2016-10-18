@@ -18,7 +18,6 @@
         <div>
             <mt-cell title="订单编号" :value="orderDetail.orderId"></mt-cell>
             <mt-cell title="下单时间" :value="orderDetail.orderTime"></mt-cell>
-            <mt-cell title="订单总额" :value="orderDetail.total"></mt-cell>
         </div>
 
       <!-- 产品明细 -->
@@ -30,20 +29,21 @@
       <!-- 支付信息 -->
         <div class="block">
             <mt-cell style="font-weight:bold;" title="支付信息"></mt-cell>
-            <mt-cell title="应付金额" :value="orderDetail.factTotal"></mt-cell>
+            <mt-cell title="订单总额" :value="formatePrice(orderDetail.total)"></mt-cell>
             <mt-cell
                 title="优惠券"
                 class="text-red"
-                :value="orderDetail.coupon.amount?'-'+orderDetail.coupon.amount:''">
+                :value="orderDetail.coupon.name">
                 <!-- <span class="text-steelgrey">{{chosenCouponValue}}</span> -->
             </mt-cell>
+            <mt-cell title="应付金额" :value="formatePrice(orderDetail.factTotal)"></mt-cell>
         </div>
     </div>
       <!-- 去支付 v-if="" -->
     <div v-if="orderDetail.status==0" class="bottom-bar">
         <div class='text-right bk-white'>
-            <span>合计：{{orderDetail.factTotal}}</span>
-            <a class="goPay bk-green" @click="$go('/pay',orderId)">立即支付</a>
+            <span>合计：{{formatePrice(orderDetail.factTotal)}}</span>
+            <a class="goPay bk-green" @click="submitOrder()">立即支付</a>
         </div>
     </div>  
 </div>  
@@ -67,13 +67,23 @@ export default {
 	        backRoute: '',
 	        orderDetail:{
                 status: null,
-                coupon: {},
+                coupon: {
+                    name: null
+                },
                 itemDescription: null,
                 orderId: null,
                 orderTime: null,
                 total: null,
                 factTotal: null
 	        },
+            pay: {
+                appId: '',
+                timeStamp: '',
+                nonceStr: '',
+                package: '',
+                signType: 'MD5',
+                paySign: ''
+            },
 	        orderId:'',
             activecoupons:[]
 	    }
@@ -99,20 +109,75 @@ export default {
         },
         clear(){
             clearState(this.orderDetail)
+            clearState(this.pay)
+        },
+        formatePrice(p){
+            if(!p) return ''
+            else return `￥ ${p}`
+        },
+        onBridgeReady(){
+            let self = this
+            self.$Indicator.open()
+            let opt = self.pay
+            alert(opt.appId)
+            WeixinJSBridge.invoke('getBrandWCPayRequest',opt,
+                function(res){
+                    self.$Indicator.close()
+                    
+                    if(res.err_msg == "get_brand_wcpay_request:fail" ) {
+                        alert('fail')
+                    }
+                    if(res.err_msg == "get_brand_wcpay_request:cancel" ) {
+                        alert('cancel')
+                    }
+                    if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+                        self.$Toast('支付成功')
+                        self.$back('/home?paysuccess=1')
+                    }
+                }
+            ); 
+        },    
+        wxPay(){
+            if (typeof WeixinJSBridge == "undefined"){
+                if( document.addEventListener ){
+                    document.addEventListener('WeixinJSBridgeReady', this.onBridgeReady, false);
+                }else if (document.attachEvent){
+                    document.attachEvent('WeixinJSBridgeReady', this.onBridgeReady); 
+                    document.attachEvent('onWeixinJSBridgeReady', this.onBridgeReady);
+                }
+            }else{
+                this.onBridgeReady();
+            }
+        },    
+        submitOrder(){
+            this.$Indicator.open()
+            this.$$post('/app2/zhanghaopai/UserAccount/wxPayForOrder',{
+                orderId: this.orderDetail.orderId
+            })
+            .then((data)=>{
+                this.$Indicator.close()
+                console.log(data)
+                if(data){
+                    let g = data.package
+                    if(g){
+                        alert(g.appId)
+                        this.pay.appId= g.appId,
+                        this.pay.timeStamp= g.timeStamp,
+                        this.pay.nonceStr= g.nonceStr,
+                        this.pay.package= g.package,
+                        this.pay.signType= g.signType,
+                        this.pay.paySign= g.paySign
+
+                        this.wxPay()
+                    }                    
+                }
+            })
         }
 	},
     created(){},
     route: {
         data ({from, to, next}){
             let orderId = to.params.orderId
-            // if(from.path){
-            //     //微信环境中from.path带上了额外的query属性，所以需要substring之后判断
-            //     if(from.path.substring(0,6) == "/order") this.backRoute = '/orderlist'
-            //     else this.backRoute = '/home'
-            // }
-            // else{
-            //     this.backRoute = '/home'
-            // }
             this.$$get('/app2/powerShop/UserOrderSvr/info',{
                 params: {
                     id: orderId
@@ -128,7 +193,7 @@ export default {
                     this.orderDetail.orderId= res.orderId,
                     this.orderDetail.orderTime= res.orderTime,
                     this.orderDetail.total= res.total,
-                    this.orderDetail.factTotal= res.factTotal                    
+                    this.orderDetail.factTotal= res.factTotal
                 }
             })
         	next()

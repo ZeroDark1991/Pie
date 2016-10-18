@@ -12,7 +12,7 @@
             :img-url= "userInfo.imgUrl"
             :tel= "userInfo.mobile"
             style= "margin:1.5rem 0;"
-            @click= "detail()">
+            @click= "$go('/userinfo')">
         </avatar-box>
         <div style="margin-top: 2rem;">
             <mt-cell title="优惠券" @click="linkblock?$Toast('请先登录'):$go('/couponlist')">
@@ -30,7 +30,7 @@
             </mt-cell>               
         </div>
         <div
-            v-if="!basicInfo.loginName"
+            v-if="!basicInfo.userId"
             class="flex-center"
             style="margin: 2rem 1rem 0 1rem">
             <mt-button size='large' type='danger' @click="openSignInPop()">
@@ -67,7 +67,7 @@ export default {
         }
     },
     created(){
-        if(!this.basicInfo.loginName){
+        if(!this.basicInfo.userId){
             this.$$get('/app2/console/UserSvr/userInfo')
             .then((data)=>{
                 if(data.SU) this.setUserInfoBasic(data.SU)
@@ -91,7 +91,7 @@ export default {
             return defaultUserInfo
         },
         linkblock(){
-            return this.basicInfo.loginName
+            return this.basicInfo.userId
             ? false
             : true
         }
@@ -99,9 +99,6 @@ export default {
     methods:{
         quit(){//退出账号
         
-        },
-        detail(){
-            this.$Toast('invoke detail page')
         }
     },
     route: {

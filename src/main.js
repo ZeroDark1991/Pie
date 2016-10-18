@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import app from './App'
-// require('es6-promise').polyfill()
+
+require("babel-polyfill")
 
 //router
 import VueRouter from 'vue-router'
@@ -10,7 +11,7 @@ import { configRouter } from './route-config'
 import VueProgressBar from 'vue-progressbar'
 
 //vuex
-import store from './vuex/store'
+// import store from './vuex/store'
 
 // UI layout & components
 import 'mobi.css'
@@ -53,14 +54,15 @@ Vue.use(VueProgressBar, {
 
 Vue.http.headers.common['Content-Type'] = "application/x-www-form-urlencoded;charset=utf-8"
 
-Vue.prototype.$$get = Service.get
-Vue.prototype.$$post = Service.post
-Vue.prototype.$go = $go
-Vue.prototype.$back = $back
-Vue.prototype.$MessageBox = MessageBox
-Vue.prototype.$Toast = _MyToast
-Vue.prototype.$imgHandler = imgHandler
-Vue.prototype.$Indicator = Indicator
+let p = Vue.prototype
+p.$$get = Service.get
+p.$$post = Service.post
+p.$go = $go
+p.$back = $back
+p.$MessageBox = MessageBox
+p.$Toast = _MyToast
+p.$imgHandler = imgHandler
+p.$Indicator = Indicator
 
 function _MyToast(message){
 	Toast({
@@ -78,5 +80,4 @@ configRouter(router)
 // sync(store, router)
 
 router.start(App, '#app')
-
 window._Router = router
