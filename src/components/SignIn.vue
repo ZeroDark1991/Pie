@@ -3,15 +3,18 @@
         <div @click='closeSignInPop()' class="flex-right">
             <i class="iconfont close-btn text-grey">&#xe61c;</i>
         </div>
+        <div class="logo-box flex-center top-gap">
+        	<img class="logo" alt="" :src="logo">
+        </div>
         <div class="top-gap">
-            <div class="flex-center bk-white" style="margin:0 5%">
+            <div class="flex-center bk-white" style="margin:0 1.2rem;border-radius: 7px 7px 0 0">
             	<div
             	    class="flex-left"
             	    style="width: 100%;
-            	        padding: .5rem .1rem;
+            	        padding: .3rem .1rem;
             	        border: 1px solid #ddd;
-            	        border-radius: 5px 5px 0 0">
-            		<div class="unit-1-4 sitebox sign-box-item">手机号</div>
+            	        border-radius: 7px 7px 0 0">
+            		<!-- <div class="unit-1-4 sitebox sign-box-item">手机号</div> -->
             		<div class="unit-3-4 sitebox sign-box-item">
             		    <input
             		        type="text"
@@ -21,33 +24,33 @@
             		</div>
             	</div>
             </div>
-            <div class="flex-center  bk-white" style="margin:0 5%">
+            <div class="flex-center bk-white"
+                style="margin:0 1.2rem;border-radius: 0 0 7px 7px">
             	<div
             	    class="flex-left"
             	    style="width: 100%;
-            	        padding: .5rem .1rem;
+            	        padding: .3rem .1rem;
             	        border:1px solid #ddd;
-            	        border-top: none;
-            	        border-radius: 0 0 5px 5px">
-            		<div class="unit-1-4 sitebox sign-box-item">验证码</div>
-            		<div class="unit-3-4 sitebox sign-box-item">
+            	        border-radius: 0 0 7px 7px;
+            	        border-top: none;">
+            		<!-- <div class="unit-1-4 sitebox sign-box-item">验证码</div> -->
+            		<div class="unit-1-2 sitebox sign-box-item">
             		    <div style="width: 100%" class='flex-left'>
             		        <div>
             		            <input
             		                type="text"
-            		                style="width:5rem"
+            		                style="width:100%"
             		                placeholder="输入验证码"
             		                v-model="verifyCode">
-            		        </div>
-            		        <div class="unit-1-2 sitebox text-right">
+            		        </div>        			    
+            		    </div>
+            		</div>
+            		<div class="unit-1-2 sitebox sign-box-item text-right">
                                 <span 
                                     class="text-green"
                                     @click='fetchVerifyCode()'>
                                     {{ btnText }}
-                                </span>
-                            </div>          			    
-            		    </div>
-           		    
+                                </span>            			
             		</div>
             	</div>
             </div>
@@ -75,15 +78,14 @@
         	<mt-button
         	    type='primary' 
         	    size='large'
-        	    @click='signin()'
-        	    plain>
+        	    @click='signin()'>
         	    登录
     	    </mt-button>
         </div>      
 	</div>
 </template>
 <script>
-import FieldProgress from 'components/FieldProgress.vue'
+import logo from 'assets/pi-logo.png'
 import {
     closeSignInPop,
     setUserInfoBasic,
@@ -106,16 +108,13 @@ export default {
 			msgNum: '',
 			btnText: '获取验证码',
 			btnDisable: false,
+			logo: logo
 		}
-	},
-	components:{
-		FieldProgress
 	},
 	methods: {
 		fetchVerifyCode(){
 			if(!this.account) return this.$Toast('先输入手机号')
-			if(!(/^1[34578]\d{9}$/.test(this.account))) return this.$Toast('手机号格式有误')
-			let formData = { mobile: this.account }
+			if(!(/^1[0345789]\d{9}$/.test(this.account))) return this.$Toast('手机号格式有误')
 		    this.btnDisable = true
             let c = 60
 		    let timer = setInterval(()=>{
@@ -127,8 +126,9 @@ export default {
                 }
 		    },1000)
 
+			let formData = { mobile: this.account }
 			this.$$post('/app2/console/ShortMsgSvr/loginCheck',formData)
-			.then((data)=>{
+			.then((data) => {
 				if(data){
 					console.log(data)
 					this.$Toast('发送成功')
@@ -175,12 +175,17 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
+.logo-box
+    padding 1rem 0
+.logo
+    width 4.5rem
+    height 100%
 .sign-in-container
 	width 100%
 	height 100%
-	background-color rgba(180,180,180,0)
+	background-color rgba(140,170,140,.1)
 .close-btn
-	padding .6rem
+	padding .7rem 1rem
 .sign-box-container
     border 1px solid #eee
 .sign-box{

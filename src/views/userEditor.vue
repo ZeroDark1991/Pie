@@ -17,10 +17,18 @@
 </div>
 </template>
 <script>
+import {
+	setUserInfoBasic,
+	dirtyListPush
+} from '../vuex/actions'
 export default{
 	vuex: {
         getters: {
         	basic : state => state.userinfo.basic
+        },
+        actions: {
+        	setUserInfoBasic,
+        	dirtyListPush
         }
 	},
 	data() {
@@ -31,7 +39,15 @@ export default{
 	},
 	methods:{
 		signOut(){
-            this.$Toast('switch account')
+            this.$$post('/app2/console/Logout/action')
+            .then((data) => {
+            	if(data.result == 'success'){
+            		this.$Toast('成功退出登录')
+            		this.setUserInfoBasic(null)
+            		this.dirtyListPush('home')
+            		this.$go('/home')
+            	}
+            })
 		}
 	}
 }

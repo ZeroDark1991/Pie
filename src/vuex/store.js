@@ -7,14 +7,18 @@ const tdArr = [today.getFullYear(), today.getMonth()+1, today.getDate()]
 
 const state = {
     userinfo: {
-        signinPop: true,
+        signinPop: false,
         basic: '',
     },
     couponlist: [],
+    activedcoupons: [],
+    chosencoupon: '',
     newslist: [],
     orderlist: [],
-    dirty: {
-        newslist: true,
+    currentorder: {
+        startDate: '',
+        dayNum: '',
+        channelId: '',
     },
     plantform: {
         currentPlantform: {
@@ -23,19 +27,13 @@ const state = {
         },
         plantformList: []
     },
-    currentorder: {
-        startDate: '',
-        dayNum: '',
-        channelId: '',
-    },
-    activedcoupons: [],
     currentdate: today,
     today: today,
-    chosencoupon: ''
+    dirty: []
 }
 
 const mutations = {
-    //用户
+    // 用户
     ['OPEN_SIGNIN_POP'](state, data){
         state.userinfo.signinPop = data
     },
@@ -45,21 +43,21 @@ const mutations = {
     ['SET_USERINFO_BASIC'](state, data){
         state.userinfo.basic = data
     },
-    //plantform
+    // plantform
     ['SET_CURRENT_PLANTFORM'] (state, data){
         state.plantform.currentPlantform = data
     },
     ['SET_PLANTFORM_LIST'] (state, data){
         state.plantform.plantformList = data
     },
-    //orders
+    // orders
     ['SET_ORDER_LIST'] (state, data){
         state.orderlist = data
     },
     ['SET_CURRENT_ORDER'] (state, data){
         state.currentorder = data
     },
-    //coupons
+    // coupons
     ['SET_COUPON_LIST'] (state, data){
         state.couponlist = data
     },
@@ -69,9 +67,17 @@ const mutations = {
     ['SET_ACTIVED_COUPONS'] (state, data){
         state.activedcoupons = data
     },    
-    //news
+    // news
     ['SET_NEWS_LIST'] (state, data){
         state.newslist = data
+    },
+    // dirty check
+    ['DIRTYLIST_PUSH'] (state, data){
+        state.dirty.push(data)
+    },
+    ['DIRTYLIST_POP'] (state, data){
+        let index = state.dirty.indexOf(data)
+        state.dirty.splice(index, 1)
     }
 }
 

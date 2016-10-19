@@ -56,6 +56,10 @@
 	border: 1px solid #1AAD19;
 }
 
+.mint-button--primary{
+	background-color: #1AAD19;
+}
+
 .mint-indicator-mask, .mint-indicator-wrapper{
 	position: absolute;
 	z-index: 6666;
@@ -89,11 +93,9 @@
     transform: scale(1); 
     transform: translateY(-50%) rotate(45deg); 
 }
-
 .mint-field .mint-cell-title{
 	padding-left:1rem
 }
-
 .mint-cell-value .mt-range{
 	width:100%	
 }

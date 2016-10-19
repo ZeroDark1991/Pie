@@ -46,3 +46,14 @@ export const closeSignInPop = ({ dispatch }) => {
 export const setUserInfoBasic = ({ dispatch }, data) => {
 	dispatch('SET_USERINFO_BASIC', data)
 }
+
+/*
+ * 脏检查
+ */
+export const dirtyListPush = ({ dispatch }, data) => {
+    dispatch('DIRTYLIST_PUSH', data)
+}
+
+export const dirtyListPop = ({ dispatch }, data) => {
+    dispatch('DIRTYLIST_POP', data)
+}

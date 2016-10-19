@@ -69,7 +69,7 @@
                 <div class="flex-center" slot="value">
                     <div class="change-day-btn iconfont text-normal">
                         <span
-                            class= "bk-grey change-day-icon text-deepgrey"
+                            class= "change-day-icon text-deepgrey"
                             @click= 'updateStartDay(0)'>
                             &#xe60e;
                         </span>
@@ -77,7 +77,7 @@
                     <div class="flex-center" style="min-width: 100px"> {{formatDate}}</div>
                     <div class="change-day-btn iconfont text-normal">
                         <span
-                            class= "bk-grey change-day-icon text-deepgrey"
+                            class= "change-day-icon text-deepgrey"
                             @click= 'updateStartDay(1)'>
                             &#xe60d;
                         </span>
@@ -88,7 +88,7 @@
                 <div class="flex-center" slot="value">
                     <div class="change-day-btn iconfont text-normal">
                         <span
-                            class= "bk-grey change-day-icon text-deepgrey"
+                            class= "change-day-icon text-deepgrey"
                             @click= 'updateDayNum(0)'>
                             &#xe60e;
                         </span>
@@ -98,7 +98,7 @@
                     </div>
                     <div class="change-day-btn iconfont text-normal">
                         <span
-                            class= "bk-grey change-day-icon text-deepgrey"
+                            class= "change-day-icon text-deepgrey"
                             @click= 'updateDayNum(1)'>
                             &#xe60d;
                         </span>
@@ -184,7 +184,8 @@ import {
     openSignInPop,
     setPlantformList,
     setUserInfoBasic,
-    setCurrentOrder
+    setCurrentOrder,
+    dirtyListPop
 } from '../vuex/actions'
 import { caculateDate } from 'src/util'
 
@@ -194,14 +195,16 @@ export default {
 			currentdate: state => state.currentdate,
             plantformList: state => state.plantform.plantformList,
 			currentPlantform: state => state.plantform.currentPlantform,
-            userInfoBasic: state => state.userinfo.basic
+            userInfoBasic: state => state.userinfo.basic,
+            dirty: state => state.dirty
 		},
 		actions: {
             setPlantformList,
 			setCurrentPlantform,
             openSignInPop,
             setUserInfoBasic,
-            setCurrentOrder
+            setCurrentOrder,
+            dirtyListPop
 		}
   	},
   	components:{
@@ -222,7 +225,7 @@ export default {
 	methods: {
         updateIndexData(){
             this.$$get('/app2/zhanghaopai/ChannelSvr/index')
-            .then((data)=>{
+            .then((data) => {
                 console.log(data)
                 if(data){
                     if(data.list){
@@ -290,11 +293,16 @@ export default {
 			this.$Toast('share on your moments!')
 		},
         toPageRequiresSignin(page){
-            if(!this.userInfoBasic.userId){
+            if(!this.userInfoBasic){
                 this.openSignInPop(true)
                 return
+            }else{
+                if(!this.userInfoBasic.userId){
+                    this.openSignInPop(true)
+                    return
+                }
+                this.$go(page)
             }
-            this.$go(page)
         }
 	},
 	created(){
@@ -329,8 +337,9 @@ export default {
 	route: {
 		data ({ to, next }) {
             console.log(to)
-			if(to.query.paysuccess == 1){
+			if(to.query.paysuccess == 1 || this.dirty.includes('home')){
                 this.updateIndexData()
+                this.dirtyListPop('home')
             }
             next()
 		},
@@ -387,9 +396,13 @@ border-radius()
     font-size 1.8rem
     padding 0 1.5rem
 .change-day-btn
-    padding 0 1rem
+    padding 0 .6rem
     &:first-child
         padding-left 0
 .change-day-icon
     padding .5rem
+    background-color #eee
+    &:active
+        background-color #0083ff
+        color #eee!important
 </style>
