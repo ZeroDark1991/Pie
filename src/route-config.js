@@ -79,7 +79,7 @@ export function configRouter (router) {
   })
   
   router.afterEach(({from,next}) => {
-    setTimeout(()=>{
+    setTimeout(() => {
         router.app.mask = false    
     },500)
   })  

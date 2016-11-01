@@ -5,9 +5,9 @@
 	    <div class="mediabox">
             <div class="flex-center site-box">
                 <span
-                    class="site-box text-extra text-white text-center"
-                    style= "padding: .4rem 0;line-height: 1"
-                    @click="popupForPlantform = true">
+                    class= "site-box text-extra text-white text-center"
+                    style= "padding: .4rem 0; line-height: 1"
+                    @click= "popupForPlantform = true">
                     {{currentPlantform.name}}
                     <br/>
                     <i class="iconfont">&#xe60f;</i>
@@ -15,24 +15,24 @@
 		        <span
 		            class="setting-button"
                     @click= "toPageRequiresSignin('/settings')">
-		            <i class="iconfont text-white" style="font-size:1.2rem">&#xe60b;</i>
+		            <i class="iconfont text-white" style="font-size: 1.2rem">&#xe60b;</i>
 		        </span>
 	        </div>	
             <div class="tap-box-container flex-center site-box">
                 <div
                     class="tap-box text-center"
-                    style="padding: .8rem 0;vertical-align: middle "
+                    style="padding: .8rem 0;vertical-align: middle"
                     @click='sumbitOrder()'>
         		    <i
         		        class="iconfont text-white"
         		        style="font-size: 4rem"
-        		        v-text="currentPlantform.account?'&#xe617;':'&#xe61a;'"
+        		        v-text="currentPlantform.account ? '&#xe617;' : '&#xe61a;'"
         		        >
         		    </i>
                 </div>
             </div>
     	    <div class="flex-center site-box text-white text-large">
-    	        <span v-text="currentPlantform.account?'已购买':'点击来个账号'"></span>
+    	        <span v-text="currentPlantform.account ? '已购买' : '点击来个账号'"></span>
     	    </div>            	    
 	    </div>
         <!-- banner栏结束 -->
@@ -356,8 +356,8 @@ export default {
 </script>
 <style scoped lang="stylus">
 border-radius()
-    -webkit-border-radius: arguments
-    -moz-border-radius: arguments
+    // -webkit-border-radius: arguments
+    // -moz-border-radius: arguments
     border-radius: arguments
 .mediabox
     margin 0

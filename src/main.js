@@ -54,7 +54,7 @@ Vue.use(VueProgressBar, {
 
 Vue.http.headers.common['Content-Type'] = "application/x-www-form-urlencoded;charset=utf-8"
 
-let p = Vue.prototype
+const p = Vue.prototype
 p.$$get = Service.get
 p.$$post = Service.post
 p.$go = $go

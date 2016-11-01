@@ -37,7 +37,7 @@ export default {
     // mt-popup expects two-ways binding, but .sync try to set the value from getters of vuex
     // which suppose to be read-only
     // so put it here to solve the warning
-    signinPop(){
+    signinPop() {
         return this._signinPop
     }
   },

@@ -189,24 +189,6 @@ export default {
 	},
     created(){
     	// handle 刷新该页面的情况
-
-        // let lc = window.location.href
-        // let sign = lc.replace(/\=/g,'\^').replace(/\~/g,'~')
-        // this.$$get('/app2/zhanghaopai/WxUrlSign/sign',{
-        //     params: {
-        //         url: sign
-        //     }
-        // })
-        // .then((data)=>{
-        //     console.log(JSON.stringify(data,undefined,4))
-        //     if(data.weixin){
-        //         let w = data.weixin
-        //         this.appId = w.appId
-        //         this.nonceStr = w.nonceStr
-        //         this.timeStamp = w.timeStamp
-        //     }
-        // })
-
         if(!this.currentPlantform.channelId) this.$go('/home')
     },
     route: {

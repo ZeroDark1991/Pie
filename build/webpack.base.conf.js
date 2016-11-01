@@ -65,6 +65,7 @@ module.exports = {
     ]
   },
   vue: {
-    loaders: utils.cssLoaders()
+    loaders: utils.cssLoaders(),
+    postcss: [ require('autoprefixer')({ browsers: ['last 2 versions'] }) ]
   }
 }
